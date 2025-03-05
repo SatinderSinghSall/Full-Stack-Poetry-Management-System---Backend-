@@ -40,7 +40,7 @@ router.post("/send-email", async (req, res) => {
           </div>
           <p style="margin-top: 15px; font-size: 14px; color: #777;">Click below to read the poem:</p>
           <div style="text-align: center;">
-            <a href="https://full-stack-poetry-management-system-frontend.vercel.app/poems" style="background: #007bff; color: #fff; text-decoration: none; padding: 10px 15px; border-radius: 5px; display: inline-block; font-weight: bold;">📚 Read Now</a>
+            <a href="https://satinder-poetry.vercel.app/poems" style="background: #007bff; color: #fff; text-decoration: none; padding: 10px 15px; border-radius: 5px; display: inline-block; font-weight: bold;">📚 Read Now</a>
           </div>
           <p style="font-size: 12px; color: #999; text-align: center; margin-top: 20px;">You received this email because you subscribed to our poetry updates. <br>If you wish to unsubscribe, click <a href="YOUR_UNSUBSCRIBE_LINK_HERE" style="color: #007bff;">here</a>.</p>
         </div>

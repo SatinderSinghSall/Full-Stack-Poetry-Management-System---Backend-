@@ -63,7 +63,7 @@ app.post("/subscribe", async (req, res) => {
             <h2 style="color: #333;">📜 Welcome to Poetry Updates!</h2>
             <p style="color: #555;">Thank you for subscribing! You'll now receive the latest poetry updates, inspiration, and special content.</p>
             <p>Stay inspired and keep reading! 📖</p>
-            <a href="https://full-stack-poetry-management-system-frontend.vercel.app/" style="display: inline-block; background: #007bff; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none;">Visit Our Website</a>
+            <a href="https://satinder-poetry.vercel.app/" style="display: inline-block; background: #007bff; color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none;">Visit Our Website</a>
             <p style="margin-top: 20px; font-size: 12px; color: #777;">If you didn't subscribe, you can ignore this email.</p>
             <p style="margin-top: 20px; text-align: left; font-size: 12px; color: #777;">
                 <strong>Satinder Singh Sall</strong><br>
