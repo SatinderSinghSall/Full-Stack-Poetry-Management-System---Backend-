@@ -32,6 +32,7 @@ app.use("/api/auth", require("./routes/authRoutes"));
 app.use("/api/poems", require("./routes/poemRoutes"));
 app.use("/api/email", require("./routes/emailRoutes"));
 app.use("/api/subscribe", require("./routes/subscribeRoutes"));
+app.use("/api/users", require("./routes/userRoutes"));
 
 // Health check
 app.get("/", (req, res) => {
