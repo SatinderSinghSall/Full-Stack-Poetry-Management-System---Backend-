@@ -37,7 +37,7 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-app.post("/subscribe", async (req, res) => {
+app.post("/api/subscribe", async (req, res) => {
   const { email } = req.body;
   if (!email) return res.status(400).json({ message: "Email is required" });
 
@@ -86,10 +86,21 @@ app.post("/subscribe", async (req, res) => {
   }
 });
 
-app.get("/subscribers-count", async (req, res) => {
+// ✅ list subscribers (for table)
+app.get("/api/subscribers", async (req, res) => {
   try {
-    const subscribers = await Email.find();
+    const subscribers = await Email.find().sort({ createdAt: -1 });
     res.json(subscribers);
+  } catch (error) {
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+// ✅ count subscribers (for dashboard cards)
+app.get("/api/subscribers/count", async (req, res) => {
+  try {
+    const count = await Email.countDocuments();
+    res.json({ count });
   } catch (error) {
     res.status(500).json({ message: "Server error" });
   }
