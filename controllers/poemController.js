@@ -178,4 +178,43 @@ const getPoemById = async (req, res) => {
   }
 };
 
-module.exports = { addPoem, getPoems, getPoemById };
+// Update Poem (Admin Only)
+const updatePoem = async (req, res) => {
+  if (!req.user || req.user.role !== "admin") {
+    return res.status(403).json({ message: "Admins only" });
+  }
+
+  const { title, content, author } = req.body;
+
+  try {
+    const poem = await Poem.findById(req.params.id);
+    if (!poem) return res.status(404).json({ message: "Poem not found" });
+
+    poem.title = title ?? poem.title;
+    poem.content = content ?? poem.content;
+    poem.author = author ?? poem.author;
+
+    const updated = await poem.save();
+    res.json(updated);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+// Delete Poem (Admin Only)
+const deletePoem = async (req, res) => {
+  if (!req.user || req.user.role !== "admin") {
+    return res.status(403).json({ message: "Admins only" });
+  }
+
+  try {
+    const poem = await Poem.findByIdAndDelete(req.params.id);
+    if (!poem) return res.status(404).json({ message: "Poem not found" });
+
+    res.json({ message: "Poem deleted successfully" });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+module.exports = { addPoem, getPoems, getPoemById, updatePoem, deletePoem };
