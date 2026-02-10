@@ -95,14 +95,14 @@ const notifyAllUsers = async (users, poem) => {
 
                       <!-- Button -->
                       <div style="margin:32px 0; text-align:center;">
-                        <a href="https://satinder-poetry.vercel.app/poems/${poem._id}"
+                        <a href="https://satinderpoetry.com/poems/${poem._id}"
                           style="display:inline-block; padding:14px 28px; background:#2c5364; color:#ffffff; text-decoration:none; border-radius:30px; font-weight:600; font-size:15px;">
                           Read the Poem →
                         </a>
                       </div>
 
                       <div style="text-align:center;">
-                        <a href="https://satinder-poetry.vercel.app/poems"
+                        <a href="https://satinderpoetry.com/poems"
                           style="color:#0984e3; text-decoration:none; font-size:14px;">
                           Explore All Poems
                         </a>
@@ -130,7 +130,7 @@ const notifyAllUsers = async (users, poem) => {
 
                       <p style="margin:0;">
                         ✉️ <a href="mailto:satindersinghsall111@gmail.com" style="color:#0984e3; text-decoration:none;">satindersinghsall111@gmail.com</a><br/>
-                        🌐 <a href="https://satinder-portfolio.vercel.app" style="color:#0984e3; text-decoration:none;">Portfolio</a> |
+                        🌐 <a href="https://satinder-portfolio.vercel.app" style="color:#0984e3; text-decoration:none;">My Portfolio</a> |
                         <a href="https://www.linkedin.com/in/satinder-singh-sall-b62049204/" style="color:#0984e3; text-decoration:none;">LinkedIn</a> |
                         <a href="https://github.com/SatinderSinghSall" style="color:#0984e3; text-decoration:none;">GitHub</a>
                       </p>

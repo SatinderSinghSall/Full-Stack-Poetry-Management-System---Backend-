@@ -72,7 +72,7 @@ exports.subscribeUser = async (req, res) => {
 
                       <!-- CTA -->
                       <div style="margin:32px 0; text-align:center;">
-                        <a href="https://satinder-poetry.vercel.app/"
+                        <a href="https://satinderpoetry.com/"
                           style="display:inline-block; padding:14px 30px; background:#243b55; color:#ffffff;
                                   text-decoration:none; border-radius:30px; font-weight:600; font-size:15px;">
                           Explore Poems →
@@ -107,7 +107,7 @@ exports.subscribeUser = async (req, res) => {
                         ✉️ <a href="mailto:satindersinghsall111@gmail.com" style="color:#0984e3; text-decoration:none;">
                           satindersinghsall111@gmail.com
                         </a><br/>
-                        🌐 <a href="https://satinder-portfolio.vercel.app" style="color:#0984e3; text-decoration:none;">Portfolio</a> |
+                        🌐 <a href="https://satinder-portfolio.vercel.app" style="color:#0984e3; text-decoration:none;">My Portfolio</a> |
                         <a href="https://www.linkedin.com/in/satinder-singh-sall-b62049204/" style="color:#0984e3; text-decoration:none;">LinkedIn</a> |
                         <a href="https://github.com/SatinderSinghSall" style="color:#0984e3; text-decoration:none;">GitHub</a>
                       </p>
