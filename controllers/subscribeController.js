@@ -145,3 +145,18 @@ exports.getSubscriberCount = async (req, res) => {
   const count = await Email.countDocuments();
   res.json({ count });
 };
+
+exports.deleteSubscriber = async (req, res) => {
+  try {
+    const subscriber = await Email.findByIdAndDelete(req.params.id);
+
+    if (!subscriber) {
+      return res.status(404).json({ message: "Subscriber not found" });
+    }
+
+    res.json({ message: "Subscriber deleted successfully" });
+  } catch (err) {
+    console.error("Delete subscriber error:", err);
+    res.status(500).json({ message: "Failed to delete subscriber" });
+  }
+};

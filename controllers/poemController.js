@@ -3,8 +3,9 @@ const User = require("../models/User");
 const { sendMail } = require("../config/mailer");
 
 // Add Poem (Admin Only)
+// Add Poem (Admin Only)
 const addPoem = async (req, res) => {
-  const { title, content, author } = req.body;
+  const { title, content, author, sendNotification = true } = req.body;
 
   if (!req.user || req.user.role !== "admin") {
     return res.status(403).json({ message: "Access denied, Admins only" });
@@ -20,13 +21,15 @@ const addPoem = async (req, res) => {
 
     const savedPoem = await poem.save();
 
-    // 🔔 Notify ALL users (async)
-    const users = await User.find({ email: { $exists: true } }, { email: 1 });
+    // 🔔 Notify ALL users ONLY if enabled
+    if (sendNotification) {
+      const users = await User.find({ email: { $exists: true } }, { email: 1 });
 
-    if (users.length > 0) {
-      notifyAllUsers(users, savedPoem).catch((err) =>
-        console.error("User email notify failed:", err),
-      );
+      if (users.length > 0) {
+        notifyAllUsers(users, savedPoem).catch((err) =>
+          console.error("User email notify failed:", err),
+        );
+      }
     }
 
     res.status(201).json(savedPoem);
