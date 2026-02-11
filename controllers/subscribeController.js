@@ -160,3 +160,23 @@ exports.deleteSubscriber = async (req, res) => {
     res.status(500).json({ message: "Failed to delete subscriber" });
   }
 };
+
+exports.getSubscriptionStatus = async (req, res) => {
+  try {
+    const record = await Email.findOne({ email: req.user.email });
+
+    if (!record) {
+      return res.json({
+        subscribed: false,
+        subscribedAt: null,
+      });
+    }
+
+    res.json({
+      subscribed: true,
+      subscribedAt: record.createdAt,
+    });
+  } catch (err) {
+    res.status(500).json({ message: "Failed to check subscription" });
+  }
+};

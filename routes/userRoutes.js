@@ -1,5 +1,6 @@
 const express = require("express");
 const User = require("../models/User");
+const { protect } = require("../middleware/authMiddleware");
 
 const router = express.Router();
 
@@ -22,6 +23,16 @@ router.delete("/:id", async (req, res) => {
     }
 
     res.json({ message: "User deleted successfully" });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// Get logged-in user profile
+router.get("/me", protect, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select("-password");
+    res.json(user);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
