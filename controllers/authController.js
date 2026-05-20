@@ -1,4 +1,6 @@
 const User = require("../models/User");
+const { sendWelcomeEmail } = require("../config/mailer");
+
 const jwt = require("jsonwebtoken");
 
 // Generate JWT Token
@@ -17,6 +19,8 @@ const registerUser = async (req, res) => {
 
     const user = await User.create({ name, email, password, role });
     if (user) {
+      await sendWelcomeEmail(user);
+
       res.status(201).json({
         _id: user._id,
         name: user.name,
