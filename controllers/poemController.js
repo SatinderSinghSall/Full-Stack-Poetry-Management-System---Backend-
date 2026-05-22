@@ -1,5 +1,7 @@
 const Poem = require("../models/Poem");
 const User = require("../models/User");
+const SubscribeEmail = require("../models/SubscribeEmail");
+
 const { sendMail } = require("../config/mailer");
 
 // NEW: reading time helper
@@ -46,10 +48,28 @@ const addPoem = async (req, res) => {
     const savedPoem = await poem.save();
 
     if (sendNotification && status === "published") {
+      // registered users
       const users = await User.find({ email: { $exists: true } }, { email: 1 });
 
-      if (users.length > 0) {
-        notifyAllUsers(users, savedPoem).catch((err) =>
+      // newsletter subscribers
+      const subscribers = await SubscribeEmail.find(
+        { email: { $exists: true } },
+        { email: 1 },
+      );
+
+      // merge + remove duplicates
+      const allEmails = [
+        ...users.map((u) => u.email),
+        ...subscribers.map((s) => s.email),
+      ];
+
+      const uniqueEmails = [...new Set(allEmails)];
+
+      // convert to same structure
+      const recipients = uniqueEmails.map((email) => ({ email }));
+
+      if (recipients.length > 0) {
+        notifyAllUsers(recipients, savedPoem).catch((err) =>
           console.error("User email notify failed:", err),
         );
       }
