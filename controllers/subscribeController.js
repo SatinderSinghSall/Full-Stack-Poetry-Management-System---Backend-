@@ -31,7 +31,8 @@ exports.subscribeUser = async (req, res) => {
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"><!--[if mso]>
 <xml><w:WordDocument xmlns:w="urn:schemas-microsoft-com:office:word"><w:DontUseAdvancedTypographyReadingMail/></w:WordDocument>
 <o:OfficeDocumentSettings><o:PixelsPerInch>96</o:PixelsPerInch><o:AllowPNG/></o:OfficeDocumentSettings></xml>
-<![endif]--><!--[if !mso]><!--><!--<![endif]-->
+<![endif]--><!--[if !mso]><!-->
+	<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@100;200;300;400;500;600;700;800;900" rel="stylesheet" type="text/css"><!--<![endif]-->
 	<style>
 		* {
 			box-sizing: border-box;
@@ -74,7 +75,16 @@ exports.subscribeUser = async (req, res) => {
 			line-height: 0;
 		}
 
-		.row-8 .column-1 .block-4 .button:hover {
+		.row-3 .column-1 .block-2 .button:hover {
+			background-color: #ff4747 !important;
+			border-bottom: 0 solid transparent !important;
+			border-left: 0 solid transparent !important;
+			border-right: 0 solid transparent !important;
+			border-top: 0 solid transparent !important;
+			color: #ffffff !important;
+		}
+
+		.row-9 .column-1 .block-4 .button:hover {
 			background-color: #fb421f !important;
 			border-bottom: 0 solid transparent !important;
 			border-left: 0 solid transparent !important;
@@ -84,8 +94,8 @@ exports.subscribeUser = async (req, res) => {
 		}
 
 		.row-2 .column-1 .block-4 .button:hover,
-		.row-3 .column-1 .block-4 .button:hover,
-		.row-4 .column-2 .block-5 .button:hover {
+		.row-4 .column-1 .block-4 .button:hover,
+		.row-5 .column-2 .block-5 .button:hover {
 			background-color: #ffffff !important;
 			border-bottom: 0 solid transparent !important;
 			border-left: 0 solid transparent !important;
@@ -144,32 +154,36 @@ exports.subscribeUser = async (req, res) => {
 				display: table-header-group !important;
 			}
 
-			.row-2 .column-1 .block-1.image_block td.pad {
-				padding: 10px 0 20px 0 !important;
-			}
-
 			.row-2 .column-1 .block-2.heading_block h1 {
 				font-size: 43px !important;
 			}
 
-			.row-2 .column-1 .block-3.paragraph_block td.pad {
-				padding: 10px 25px !important;
+			.row-2 .column-1 .block-1.image_block td.pad {
+				padding: 10px 0 20px 0 !important;
 			}
 
 			.row-2 .column-1 .block-5.image_block td.pad {
 				padding: 0 20px !important;
 			}
 
-			.row-7 .column-2 .block-5.image_block td.pad {
+			.row-2 .column-1 .block-3.paragraph_block td.pad {
+				padding: 10px 25px !important;
+			}
+
+			.row-8 .column-2 .block-5.image_block td.pad {
 				padding: 5px 10px 45px 10px !important;
 			}
 
-			.row-13 .column-3 .block-1.paragraph_block td.pad>div {
+			.row-12 .column-1 .block-1.heading_block h2 {
+				font-size: 20px !important;
+			}
+
+			.row-14 .column-3 .block-1.paragraph_block td.pad>div {
 				text-align: center !important;
 				font-size: 16px !important;
 			}
 
-			.row-3 .column-1 .col-pad {
+			.row-4 .column-1 .col-pad {
 				padding: 5px 15px 45px 15px !important;
 			}
 
@@ -178,67 +192,68 @@ exports.subscribeUser = async (req, res) => {
 				display: inline-block !important;
 			}
 
-			.row-3 .column-1 .block-2.heading_block h2,
-			.row-3 .column-1 .block-3.paragraph_block td.pad>div,
-			.row-3 .column-1 .block-4.button_block td.pad,
-			.row-4 .column-2 .block-3.heading_block h2,
-			.row-4 .column-2 .block-4.paragraph_block td.pad>div,
-			.row-4 .column-2 .block-5.button_block td.pad,
-			.row-7 .column-1 .block-2.heading_block h3,
-			.row-7 .column-1 .block-3.paragraph_block td.pad>div,
-			.row-7 .column-1 .block-4.paragraph_block td.pad>div,
-			.row-7 .column-2 .block-3.paragraph_block td.pad>div,
-			.row-7 .column-2 .block-4.paragraph_block td.pad>div,
-			.row-7 .column-2 .block-2.heading_block h3 {
-				text-align: center !important;
-			}
-
-			.row-3 .column-1 .block-1.button_block td.pad,
-			.row-4 .column-2 .block-2.button_block td.pad,
-			.row-6 .column-1 .block-2.button_block td.pad,
-			.row-8 .column-1 .block-1.button_block td.pad,
-			.row-10 .column-1 .block-1.button_block td.pad,
-			.row-13 .column-2 .block-1.social_block td.pad {
+			.row-4 .column-1 .block-1.button_block td.pad,
+			.row-5 .column-2 .block-2.button_block td.pad,
+			.row-7 .column-1 .block-2.button_block td.pad,
+			.row-9 .column-1 .block-1.button_block td.pad,
+			.row-11 .column-1 .block-1.button_block td.pad,
+			.row-14 .column-2 .block-1.social_block td.pad {
 				text-align: center !important;
 				padding: 10px !important;
 			}
 
-			.row-3 .column-1 .block-1.button_block span,
-			.row-4 .column-2 .block-2.button_block span,
-			.row-6 .column-1 .block-2.button_block span,
-			.row-8 .column-1 .block-1.button_block span,
-			.row-10 .column-1 .block-1.button_block span {
+			.row-4 .column-1 .block-1.button_block span,
+			.row-5 .column-2 .block-2.button_block span,
+			.row-7 .column-1 .block-2.button_block span,
+			.row-9 .column-1 .block-1.button_block span,
+			.row-11 .column-1 .block-1.button_block span {
 				font-size: 9px !important;
 				line-height: 18px !important;
 			}
 
-			.row-3 .column-2 .block-3.spacer_block,
-			.row-4 .column-2 .block-1.spacer_block {
+			.row-4 .column-1 .block-2.heading_block h2,
+			.row-4 .column-1 .block-3.paragraph_block td.pad>div,
+			.row-4 .column-1 .block-4.button_block td.pad,
+			.row-5 .column-2 .block-4.paragraph_block td.pad>div,
+			.row-5 .column-2 .block-3.heading_block h2,
+			.row-5 .column-2 .block-5.button_block td.pad,
+			.row-8 .column-1 .block-3.paragraph_block td.pad>div,
+			.row-8 .column-1 .block-2.heading_block h3,
+			.row-8 .column-1 .block-4.paragraph_block td.pad>div,
+			.row-8 .column-2 .block-2.heading_block h3,
+			.row-8 .column-2 .block-3.paragraph_block td.pad>div,
+			.row-8 .column-2 .block-4.paragraph_block td.pad>div {
+				text-align: center !important;
+			}
+
+			.row-4 .column-2 .block-3.spacer_block,
+			.row-5 .column-2 .block-1.spacer_block {
 				height: 15px !important;
 			}
 
-			.row-3 .column-1 .block-4.button_block span,
-			.row-4 .column-2 .block-5.button_block span {
+			.row-4 .column-1 .block-4.button_block span,
+			.row-5 .column-2 .block-5.button_block span {
 				line-height: 32px !important;
 			}
 
-			.row-7 .column-1 .block-1.image_block td.pad div,
-			.row-7 .column-1 .block-5.image_block td.pad div,
-			.row-7 .column-2 .block-1.image_block td.pad div,
-			.row-7 .column-2 .block-5.image_block td.pad div {
+			.row-8 .column-1 .block-1.image_block td.pad div,
+			.row-8 .column-1 .block-5.image_block td.pad div,
+			.row-8 .column-2 .block-1.image_block td.pad div,
+			.row-8 .column-2 .block-5.image_block td.pad div {
 				margin: 0 auto !important;
 			}
 
-			.row-7 .column-2 .block-3.paragraph_block td.pad,
-			.row-13 .column-3 .block-1.paragraph_block td.pad {
+			.row-8 .column-2 .block-3.paragraph_block td.pad,
+			.row-12 .column-1 .block-1.heading_block td.pad,
+			.row-14 .column-3 .block-1.paragraph_block td.pad {
 				padding: 10px !important;
 			}
 
-			.row-4 .column-1 .col-pad,
-			.row-4 .column-2 .col-pad,
-			.row-7 .column-1 .col-pad,
-			.row-7 .column-2 .col-pad,
-			.row-10 .column-1 .col-pad {
+			.row-5 .column-1 .col-pad,
+			.row-5 .column-2 .col-pad,
+			.row-8 .column-1 .col-pad,
+			.row-8 .column-2 .col-pad,
+			.row-11 .column-1 .col-pad {
 				padding: 5px 15px !important;
 			}
 		}
@@ -326,6 +341,38 @@ exports.subscribeUser = async (req, res) => {
 																	</tr>
 																</table>
 																<div class="spacer_block block-6 mobile_hide" style="height:45px;line-height:45px;font-size:1px;">&#8202;</div>
+																<table class="divider_block block-7" width="100%" border="0" cellpadding="10" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+																	<tr>
+																		<td class="pad" align="center">
+																			<table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+																				<tr>
+																					<td class="divider_inner" style="font-size: 1px; line-height: 1px; border-top: 1px solid #dddddd;"><span style="word-break: break-word;">&#8202;</span></td>
+																				</tr>
+																			</table>
+																		</td>
+																	</tr>
+																</table>
+																<table class="heading_block block-8" width="100%" border="0" cellpadding="10" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+																	<tr>
+																		<td class="pad" style="width:100%;" align="center">
+																			<h1 style="margin: 0; color: #535353; direction: ltr; font-family: Arial, Helvetica, sans-serif; font-size: 38px; font-weight: 700; letter-spacing: normal; line-height: 1.2; text-align: left; margin-top: 0; margin-bottom: 0; mso-line-height-alt: 46px;"><strong><span class="tinyMce-placeholder" style="word-break: break-word;"><span style="word-break: break-word; color: #000000;">About</span></span></strong></h1>
+																		</td>
+																	</tr>
+																</table>
+																<table class="heading_block block-9" width="100%" border="0" cellpadding="10" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+																	<tr>
+																		<td class="pad" style="width:100%;" align="center">
+																			<h1 style="margin: 0; color: #7747FF; direction: ltr; font-family: 'Merriweather', 'Georgia', serif; font-size: 38px; font-weight: 700; letter-spacing: normal; line-height: 1.2; text-align: left; margin-top: 0; margin-bottom: 0; mso-line-height-alt: 46px;"><span class="tinyMce-placeholder" style="word-break: break-word;"><span style="word-break: break-word; color: #000000;">Satinder Singh Sall -</span></span></h1>
+																		</td>
+																	</tr>
+																</table>
+																<table class="image_block block-10" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+																	<tr>
+																		<td class="pad" style="width:100%;" align="center">
+																			<div style="max-width: 700px;"><img src="https://228fe3e270.imgdist.com/pub/bfra/jp6v7hcl/6wo/zzz/txk/ChatGPT%20Image%20May%2023%2C%202026%2C%2007_17_56%20PM.png" style="display: block; height: auto; border: 0; width: 100%;" width="700" alt="" title="" height="auto"></div>
+																		</td>
+																	</tr>
+																</table>
 															</td>
 														</tr>
 													</table>
@@ -337,7 +384,96 @@ exports.subscribeUser = async (req, res) => {
 							</tr>
 						</tbody>
 					</table>
-					<table class="row row-3" align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #fdfbf8; background-size: auto;">
+					<table class="row row-3" align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #fdfbf8;">
+						<tbody>
+							<tr>
+								<td>
+									<table class="row-content stack" align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #f6f2ea; border-radius: 0; color: #000000; width: 700px; margin: 0 auto;" width="700">
+										<tbody>
+											<tr>
+												<td class="column column-1" width="50%" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top;">
+													<table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+														<tr>
+															<td class="col-pad" style="padding-bottom:5px;padding-top:5px;">
+																<table class="paragraph_block block-1" width="100%" border="0" cellpadding="20" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;">
+																	<tr>
+																		<td class="pad">
+																			<div style="color:#101112;direction:ltr;font-family:Arial, Helvetica, sans-serif;font-size:20px;font-weight:400;letter-spacing:0px;line-height:1.2;text-align:left;mso-line-height-alt:24px;">
+																				<p style="margin: 0;">I build high-performance<br>full-stack applications focused on<br>modern UI/UX, scalability,<br>security, and meaningful<br>digital experiences.<br><br><strong>Beyond engineering, I’m deeply</strong><br><strong>drawn to poetry, stories, reflections, and emotional writing.</strong><br><br>Currently pursuing an MCA at<br>KIIT University, while exploring<br>modern web engineering,<br>game development, and<br>immersive storytelling.</p>
+																			</div>
+																		</td>
+																	</tr>
+																</table>
+																<table class="button_block block-2" width="100%" border="0" cellpadding="10" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+																	<tr>
+																		<td class="pad" align="center"><a href="https://satinder-portfolio.vercel.app" target="_blank" style="color:#ffffff;text-decoration:none;"><!--[if mso]>
+<v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word"  href="https://satinder-portfolio.vercel.app"  style="height:42px;width:163px;v-text-anchor:middle;" arcsize="10%" fillcolor="#535353">
+<v:stroke dashstyle="Solid" weight="0px" color="#535353"/>
+<w:anchorlock/>
+<v:textbox inset="0px,0px,0px,0px">
+<center dir="false" style="color:#ffffff;font-family:sans-serif;font-size:16px">
+<![endif]--><span class="button" style="background-color: #535353; border-bottom: 0px solid transparent; border-left: 0px solid transparent; border-radius: 4px; border-right: 0px solid transparent; border-top: 0px solid transparent; color: #ffffff; display: inline-block; font-family: Arial, Helvetica, sans-serif; font-size: 16px; font-weight: 400; mso-border-alt: none; text-align: center; width: auto; word-break: keep-all; letter-spacing: normal;"><span class="btn-pad" style="word-break: break-word; padding-left: 20px; padding-right: 20px; padding-top: 5px; padding-bottom: 5px; display: block;"><span style="word-break: break-word; line-height: 32px;">View my Portfolio</span></span></span><!--[if mso]></center></v:textbox></v:roundrect><![endif]--></a></td>
+																	</tr>
+																</table>
+																<table class="paragraph_block block-3" width="100%" border="0" cellpadding="10" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;">
+																	<tr>
+																		<td class="pad">
+																			<div style="color:#101112;direction:ltr;font-family:Arial, Helvetica, sans-serif;font-size:16px;font-weight:400;letter-spacing:0px;line-height:1.2;text-align:left;mso-line-height-alt:19px;">
+																				<p style="margin: 0;">“Poetry is when an emotion has found its thought, and the thought has found words.”<br>— Robert Frost</p>
+																			</div>
+																		</td>
+																	</tr>
+																</table>
+																<table class="paragraph_block block-4" width="100%" border="0" cellpadding="10" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;">
+																	<tr>
+																		<td class="pad">
+																			<div style="color:#101112;direction:ltr;font-family:Arial, Helvetica, sans-serif;font-size:16px;font-weight:400;letter-spacing:0px;line-height:1.2;text-align:left;mso-line-height-alt:19px;">
+																				<p style="margin: 0;">“Words are, of course, the most powerful drug used by mankind.”<br>— Rudyard Kipling</p>
+																			</div>
+																		</td>
+																	</tr>
+																</table>
+																<table class="image_block block-5" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+																	<tr>
+																		<td class="pad" style="width:100%;" align="center">
+																			<div style="max-width: 350px;"><img src="https://228fe3e270.imgdist.com/pub/bfra/jp6v7hcl/fah/0nb/di9/ChatGPT%20Image%20May%2023%2C%202026%2C%2009_16_43%20AM.png" style="display: block; height: auto; border: 0; width: 100%;" width="350" alt="" title="" height="auto"></div>
+																		</td>
+																	</tr>
+																</table>
+															</td>
+														</tr>
+													</table>
+												</td>
+												<td class="column column-2" width="50%" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top;">
+													<table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+														<tr>
+															<td class="col-pad" style="padding-bottom:5px;padding-top:5px;">
+																<table class="image_block block-1" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+																	<tr>
+																		<td class="pad" style="width:100%;" align="center">
+																			<div style="max-width: 350px;"><img src="https://228fe3e270.imgdist.com/pub/bfra/jp6v7hcl/c9s/4g9/bo6/WhatsApp%20Image%202026-05-23%20at%205.37.57%20PM.jpeg" style="display: block; height: auto; border: 0; width: 100%;" width="350" alt="" title="" height="auto"></div>
+																		</td>
+																	</tr>
+																</table>
+																<table class="image_block block-2" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+																	<tr>
+																		<td class="pad" style="width:100%;" align="center">
+																			<div style="max-width: 350px;"><img src="https://228fe3e270.imgdist.com/pub/bfra/jp6v7hcl/qer/qs0/1by/WhatsApp%20Image%202026-05-23%20at%205.37.58%20PM.jpeg" style="display: block; height: auto; border: 0; width: 100%;" width="350" alt="" title="" height="auto"></div>
+																		</td>
+																	</tr>
+																</table>
+															</td>
+														</tr>
+													</table>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<table class="row row-4" align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #fdfbf8; background-size: auto;">
 						<tbody>
 							<tr>
 								<td>
@@ -350,8 +486,8 @@ exports.subscribeUser = async (req, res) => {
 															<td class="col-pad" style="padding-bottom:5px;padding-left:25px;padding-top:5px;">
 																<table class="button_block block-1" width="100%" border="0" cellpadding="10" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
 																	<tr>
-																		<td class="pad" align="left"><a href="https://www.example.com" target="_blank" style="color:#101112;text-decoration:none;"><!--[if mso]>
-<v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word"  href="https://www.example.com"  style="height:22px;width:184px;v-text-anchor:middle;" arcsize="19%" fillcolor="#e3ddd1">
+																		<td class="pad" align="left"><a href="https://satinderpoetry.com" target="_blank" style="color:#101112;text-decoration:none;"><!--[if mso]>
+<v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word"  href="https://satinderpoetry.com"  style="height:22px;width:184px;v-text-anchor:middle;" arcsize="19%" fillcolor="#e3ddd1">
 <v:stroke dashstyle="Solid" weight="0px" color="#e3ddd1"/>
 <w:anchorlock/>
 <v:textbox inset="0px,0px,0px,0px">
@@ -414,7 +550,7 @@ exports.subscribeUser = async (req, res) => {
 							</tr>
 						</tbody>
 					</table>
-					<table class="row row-4" align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #fdfbf8;">
+					<table class="row row-5" align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #fdfbf8;">
 						<tbody>
 							<tr>
 								<td>
@@ -444,8 +580,8 @@ exports.subscribeUser = async (req, res) => {
 																<div class="spacer_block block-1" style="height:45px;line-height:45px;font-size:1px;">&#8202;</div>
 																<table class="button_block block-2" width="100%" border="0" cellpadding="10" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
 																	<tr>
-																		<td class="pad" align="left"><a href="https://www.example.com" target="_blank" style="color:#101112;text-decoration:none;"><!--[if mso]>
-<v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word"  href="https://www.example.com"  style="height:22px;width:234px;v-text-anchor:middle;" arcsize="19%" fillcolor="#e3ddd1">
+																		<td class="pad" align="left"><a href="https://satinderpoetry.com" target="_blank" style="color:#101112;text-decoration:none;"><!--[if mso]>
+<v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word"  href="https://satinderpoetry.com"  style="height:22px;width:234px;v-text-anchor:middle;" arcsize="19%" fillcolor="#e3ddd1">
 <v:stroke dashstyle="Solid" weight="0px" color="#e3ddd1"/>
 <w:anchorlock/>
 <v:textbox inset="0px,0px,0px,0px">
@@ -491,7 +627,7 @@ exports.subscribeUser = async (req, res) => {
 							</tr>
 						</tbody>
 					</table>
-					<table class="row row-5" align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #fdfbf8;">
+					<table class="row row-6" align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #fdfbf8;">
 						<tbody>
 							<tr>
 								<td>
@@ -514,7 +650,7 @@ exports.subscribeUser = async (req, res) => {
 							</tr>
 						</tbody>
 					</table>
-					<table class="row row-6" align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #fdfbf8; background-size: auto;">
+					<table class="row row-7" align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #fdfbf8; background-size: auto;">
 						<tbody>
 							<tr>
 								<td>
@@ -528,8 +664,8 @@ exports.subscribeUser = async (req, res) => {
 																<div class="spacer_block block-1" style="height:45px;line-height:45px;font-size:1px;">&#8202;</div>
 																<table class="button_block block-2" width="100%" border="0" cellpadding="10" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
 																	<tr>
-																		<td class="pad" align="center"><a href="https://www.example.com" target="_blank" style="color:#101112;text-decoration:none;"><!--[if mso]>
-<v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word"  href="https://www.example.com"  style="height:22px;width:165px;v-text-anchor:middle;" arcsize="19%" fillcolor="#e3ddd1">
+																		<td class="pad" align="center"><a href="https://satinderpoetry.com" target="_blank" style="color:#101112;text-decoration:none;"><!--[if mso]>
+<v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word"  href="https://satinderpoetry.com"  style="height:22px;width:165px;v-text-anchor:middle;" arcsize="19%" fillcolor="#e3ddd1">
 <v:stroke dashstyle="Solid" weight="0px" color="#e3ddd1"/>
 <w:anchorlock/>
 <v:textbox inset="0px,0px,0px,0px">
@@ -555,7 +691,7 @@ exports.subscribeUser = async (req, res) => {
 							</tr>
 						</tbody>
 					</table>
-					<table class="row row-7" align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #fdfbf8; background-size: auto;">
+					<table class="row row-8" align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #fdfbf8; background-size: auto;">
 						<tbody>
 							<tr>
 								<td>
@@ -569,7 +705,7 @@ exports.subscribeUser = async (req, res) => {
 																<table class="image_block block-1" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
 																	<tr>
 																		<td class="pad" style="width:100%;padding-bottom:5px;padding-left:10px;padding-right:10px;" align="left">
-																			<div style="max-width: 47.25px;"><a href="https://satinderpoetry.com/login" target="_blank"><img src="https://d1oco4z2z1fhwp.cloudfront.net/templates/default/10666/icon-tech.png" style="display: block; height: auto; border: 0; width: 100%;" width="47.25" alt="Icon Review" title="Icon Review" height="auto"></a></div>
+																			<div style="max-width: 47.25px;"><a href="https://satinderpoetry.com" target="_blank"><img src="https://d1oco4z2z1fhwp.cloudfront.net/templates/default/10666/icon-tech.png" style="display: block; height: auto; border: 0; width: 100%;" width="47.25" alt="Icon Review" title="Icon Review" height="auto"></a></div>
 																		</td>
 																	</tr>
 																</table>
@@ -619,7 +755,7 @@ exports.subscribeUser = async (req, res) => {
 																<table class="image_block block-1" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
 																	<tr>
 																		<td class="pad" style="width:100%;padding-bottom:5px;padding-left:10px;padding-right:10px;" align="left">
-																			<div style="max-width: 47.25px;"><a href="https://satinderpoetry.com/login" target="_blank"><img src="https://d1oco4z2z1fhwp.cloudfront.net/templates/default/10666/icon-tech.png" style="display: block; height: auto; border: 0; width: 100%;" width="47.25" alt="Icon Review" title="Icon Review" height="auto"></a></div>
+																			<div style="max-width: 47.25px;"><a href="https://satinderpoetry.com" target="_blank"><img src="https://d1oco4z2z1fhwp.cloudfront.net/templates/default/10666/icon-tech.png" style="display: block; height: auto; border: 0; width: 100%;" width="47.25" alt="Icon Review" title="Icon Review" height="auto"></a></div>
 																		</td>
 																	</tr>
 																</table>
@@ -666,118 +802,193 @@ exports.subscribeUser = async (req, res) => {
 							</tr>
 						</tbody>
 					</table>
-					<!-- CTA SECTION -->
-          <table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation"
-          style="background-color:#fdfbf8;">
+					<!-- SUBSCRIPTION CONFIRMATION SECTION -->
+					<table
+					class="row row-9"
+					align="center"
+					width="100%"
+					border="0"
+					cellpadding="0"
+					cellspacing="0"
+					role="presentation"
+					style="background-color:#fdfbf8;"
+					>
+					<tbody>
+						<tr>
+						<td>
 
-          <tr>
-          <td align="center">
+							<table
+							class="row-content stack"
+							align="center"
+							border="0"
+							cellpadding="0"
+							cellspacing="0"
+							role="presentation"
+							width="700"
+							style="
+								background-color:#101112;
+								color:#ffffff;
+								width:700px;
+								margin:0 auto;
+								border-radius:18px;
+							"
+							>
 
-          <table width="700" border="0" cellpadding="0" cellspacing="0"
-          role="presentation"
-          style="
-          width:700px;
-          max-width:700px;
-          background-color:#090a0b;
-          overflow:hidden;
-          ">
+							<tbody>
+								<tr>
+								<td
+									class="column column-1"
+									width="100%"
+									style="
+									padding-top:40px;
+									padding-bottom:40px;
+									padding-left:30px;
+									padding-right:30px;
+									text-align:center;
+									"
+								>
 
-          <!-- BACKGROUND IMAGE -->
-          <tr>
-          <td
-          background="https://228fe3e270.imgdist.com/pub/bfra/jp6v7hcl/fah/0nb/di9/ChatGPT%20Image%20May%2023%2C%202026%2C%2009_16_43%20AM.png"
-          style="
-          background-image:url('https://228fe3e270.imgdist.com/pub/bfra/jp6v7hcl/fah/0nb/di9/ChatGPT%20Image%20May%2023%2C%202026%2C%2009_16_43%20AM.png');
-          background-size:cover;
-          background-position:center;
-          background-repeat:no-repeat;
-          padding:80px 40px;
-          text-align:center;
-          ">
+									<!-- IMAGE -->
+									<table
+									class="image_block"
+									width="100%"
+									border="0"
+									cellpadding="0"
+									cellspacing="0"
+									role="presentation"
+									>
+									<tr>
+										<td align="center">
 
-          <!-- DARK OVERLAY -->
-          <div style="
-          background:rgba(0,0,0,0.55);
-          padding:60px 30px;
-          border-radius:18px;
-          ">
+										<img
+											src="https://228fe3e270.imgdist.com/pub/bfra/jp6v7hcl/fba/oj4/wh6/ChatGPT%20Image%20May%2023%2C%202026%2C%2009_12_09%20AM.png"
+											alt="Satinder Poetry"
+											width="640"
+											style="
+											width:100%;
+											max-width:640px;
+											height:auto;
+											display:block;
+											border:0;
+											border-radius:16px;
+											"
+										>
 
-          <!-- SMALL LABEL -->
-          <div style="
-          display:inline-block;
-          background:#2d2d2d;
-          padding:7px 16px;
-          border-radius:6px;
-          font-size:11px;
-          font-weight:700;
-          letter-spacing:2px;
-          color:#ffffff;
-          margin-bottom:24px;
-          font-family:Arial,Helvetica,sans-serif;
-          ">
-          TAKE ACTION
-          </div>
+										</td>
+									</tr>
+									</table>
 
-          <!-- HEADING -->
-          <h2 style="
-          margin:0;
-          font-size:48px;
-          line-height:56px;
-          font-weight:700;
-          color:#ffffff;
-          font-family:Arial,Helvetica,sans-serif;
-          letter-spacing:-1px;
-          ">
+									<!-- SPACING -->
+									<div style="height:30px;line-height:30px;font-size:1px;">
+									&#8202;
+									</div>
 
-          Your Subscription Is Confirmed ✨
+									<!-- SMALL LABEL -->
+									<div
+									style="
+										display:inline-block;
+										background:#2d2d2d;
+										color:#ffffff;
+										padding:6px 14px;
+										border-radius:6px;
+										font-size:11px;
+										letter-spacing:2px;
+										font-weight:bold;
+										font-family:Arial,Helvetica,sans-serif;
+									"
+									>
+									SUBSCRIPTION CONFIRMED
+									</div>
 
-          </h2>
+									<!-- SPACING -->
+									<div style="height:20px;line-height:20px;font-size:1px;">
+									&#8202;
+									</div>
 
-          <!-- TEXT -->
-          <p style="
-          margin:24px auto 36px;
-          font-size:18px;
-          line-height:34px;
-          color:#f3f4f6;
-          font-family:Arial,Helvetica,sans-serif;
-          max-width:520px;
-          ">
+									<!-- HEADING -->
+									<h2
+									style="
+										margin:0;
+										color:#ffffff;
+										font-family:Arial,Helvetica,sans-serif;
+										font-size:34px;
+										line-height:1.3;
+										font-weight:700;
+									"
+									>
+									Your Subscription Is Confirmed ✨
+									</h2>
 
-          Stay connected for future poems,
-          stories, and reflective writing updates.
+									<!-- SPACING -->
+									<div style="height:18px;line-height:18px;font-size:1px;">
+									&#8202;
+									</div>
 
-          </p>
+									<!-- PARAGRAPH -->
+									<p
+									style="
+										margin:0;
+										color:#d7d7d7;
+										font-family:Arial,Helvetica,sans-serif;
+										font-size:17px;
+										line-height:1.8;
+									"
+									>
+									Stay connected for future poems,
+									emotional reflections, stories,
+									and peaceful writing updates.
+									</p>
 
-          <!-- BUTTON -->
-          <a href="https://satinderpoetry.com"
-          style="
-          display:inline-block;
-          background:#ffffff;
-          color:#090a0b;
-          text-decoration:none;
-          padding:18px 38px;
-          border-radius:999px;
-          font-size:16px;
-          font-weight:600;
-          font-family:Arial,Helvetica,sans-serif;
-          ">
+									<!-- SPACING -->
+									<div style="height:35px;line-height:35px;font-size:1px;">
+									&#8202;
+									</div>
 
-          Explore Website ➜
+									<!-- BUTTON -->
+									<table
+									border="0"
+									cellspacing="0"
+									cellpadding="0"
+									align="center"
+									>
+									<tr>
+										<td
+										align="center"
+										bgcolor="#ffffff"
+										style="
+											border-radius:40px;
+										"
+										>
+										<a
+											href="https://satinderpoetry.com"
+											target="_blank"
+											style="
+											font-size:16px;
+											font-family:Arial,Helvetica,sans-serif;
+											color:#101112;
+											text-decoration:none;
+											padding:16px 34px;
+											display:inline-block;
+											border-radius:40px;
+											"
+										>
+											Explore Website ➜
+										</a>
+										</td>
+									</tr>
+									</table>
 
-          </a>
+								</td>
+								</tr>
+							</tbody>
 
-          </div>
+							</table>
 
-          </td>
-          </tr>
-
-          </table>
-
-          </td>
-          </tr>
-
-          </table>
-					<table class="row row-9" align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #fdfbf8;">
+						</td>
+						</tr>
+					</tbody>
+					</table>
+					<table class="row row-10" align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #fdfbf8;">
 						<tbody>
 							<tr>
 								<td>
@@ -794,7 +1005,7 @@ exports.subscribeUser = async (req, res) => {
 							</tr>
 						</tbody>
 					</table>
-					<table class="row row-10" align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #fdfbf8;">
+					<table class="row row-11" align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #fdfbf8;">
 						<tbody>
 							<tr>
 								<td>
@@ -819,7 +1030,7 @@ exports.subscribeUser = async (req, res) => {
 																<table class="heading_block block-2" width="100%" border="0" cellpadding="10" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
 																	<tr>
 																		<td class="pad" style="width:100%;" align="center">
-																			<h2 style="margin: 0; color: #101112; direction: ltr; font-family: Arial, Helvetica, sans-serif; font-size: 26px; font-weight: 700; letter-spacing: normal; line-height: 1.2; text-align: center; margin-top: 0; margin-bottom: 0; mso-line-height-alt: 31px;">Thank You For Subscribing ❤️</h2>
+																			<h2 style="margin: 0; color: #101112; direction: ltr; font-family: Arial, Helvetica, sans-serif; font-size: 26px; font-weight: 700; letter-spacing: normal; line-height: 1.2; text-align: center; margin-top: 0; margin-bottom: 0; mso-line-height-alt: 31px;"><span class="tinyMce-placeholder" style="word-break: break-word;">Thank You For Subscribing ❤️</span></h2>
 																		</td>
 																	</tr>
 																</table>
@@ -834,7 +1045,7 @@ exports.subscribeUser = async (req, res) => {
 							</tr>
 						</tbody>
 					</table>
-					<table class="row row-11" align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #fdfbf8;">
+					<table class="row row-12" align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #fdfbf8;">
 						<tbody>
 							<tr>
 								<td>
@@ -845,7 +1056,14 @@ exports.subscribeUser = async (req, res) => {
 													<table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
 														<tr>
 															<td class="col-pad" style="padding-bottom:5px;padding-top:5px;">
-																<div class="spacer_block block-1" style="height:45px;line-height:45px;font-size:1px;">&#8202;</div>
+																<table class="heading_block block-1" width="100%" border="0" cellpadding="10" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+																	<tr>
+																		<td class="pad" style="width:100%;" align="center">
+																			<h2 style="margin: 0; color: #7747FF; direction: ltr; font-family: Arial, Helvetica, sans-serif; font-size: 20px; font-weight: 700; letter-spacing: normal; line-height: 1.2; text-align: center; margin-top: 0; margin-bottom: 0; mso-line-height-alt: 24px;"><span style="word-break: break-word; color: #000000;">“Some feelings are too deep for ordinary sentences.”</span></h2>
+																		</td>
+																	</tr>
+																</table>
+																<div class="spacer_block block-2" style="height:45px;line-height:45px;font-size:1px;">&#8202;</div>
 															</td>
 														</tr>
 													</table>
@@ -857,7 +1075,7 @@ exports.subscribeUser = async (req, res) => {
 							</tr>
 						</tbody>
 					</table>
-					<table class="row row-12" align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #fdfbf8;">
+					<table class="row row-13" align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #fdfbf8;">
 						<tbody>
 							<tr>
 								<td>
@@ -880,7 +1098,7 @@ exports.subscribeUser = async (req, res) => {
 							</tr>
 						</tbody>
 					</table>
-					<table class="row row-13" align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #fdfbf8;">
+					<table class="row row-14" align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #fdfbf8;">
 						<tbody>
 							<tr>
 								<td>
@@ -949,7 +1167,7 @@ exports.subscribeUser = async (req, res) => {
 							</tr>
 						</tbody>
 					</table>
-					<table class="row row-14" align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+					<table class="row row-15" align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
 						<tbody>
 							<tr>
 								<td>

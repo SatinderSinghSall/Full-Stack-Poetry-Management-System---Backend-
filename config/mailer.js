@@ -124,6 +124,14 @@ const sendWelcomeEmail = async (user) => {
 				height: 50px !important;
 			}
 
+			.row-3 .column-1 .block-3.paragraph_block td.pad {
+				padding: 10px 25px 0 25px !important;
+			}
+
+			.row-3 .column-1 .block-8.spacer_block {
+				height: 10px !important;
+			}
+
 			.row-3 .column-1 .block-2.divider_block td.pad {
 				padding: 0 25px !important;
 			}
@@ -132,15 +140,7 @@ const sendWelcomeEmail = async (user) => {
 				display: inline-table;
 			}
 
-			.row-3 .column-1 .block-3.paragraph_block td.pad {
-				padding: 10px 25px 0 25px !important;
-			}
-
-			.row-3 .column-1 .block-6.spacer_block {
-				height: 10px !important;
-			}
-
-			.row-3 .column-1 .block-12.button_block td.pad .button {
+			.row-3 .column-1 .block-14.button_block td.pad .button {
 				width: 50% !important;
 			}
 
@@ -148,15 +148,19 @@ const sendWelcomeEmail = async (user) => {
 				padding: 0 5px 0 0 !important;
 			}
 
-			.row-5 .column-1 .block-1.paragraph_block td.pad {
-				padding: 10px 25px !important;
-			}
-
 			.row-4 .column-3 .block-2.paragraph_block td.pad {
 				padding: 0 0 0 5px !important;
 			}
 
-			.row-11 .column-2 .block-1.image_block td.pad {
+			.row-5 .column-1 .block-1.paragraph_block td.pad {
+				padding: 10px 25px !important;
+			}
+
+			.row-9 .column-1 .block-1.spacer_block {
+				height: 30px !important;
+			}
+
+			.row-11 .column-2 .block-2.image_block td.pad {
 				padding: 0 !important;
 			}
 
@@ -182,36 +186,31 @@ const sendWelcomeEmail = async (user) => {
 			}
 
 			.row-1 .column-1 .block-1.image_block td.pad div,
-			.row-11 .column-2 .block-1.image_block td.pad div {
+			.row-11 .column-2 .block-2.image_block td.pad div {
 				margin: 0 auto !important;
 			}
 
-			.row-3 .column-1 .block-4.spacer_block,
-			.row-9 .column-1 .block-1.spacer_block {
-				height: 30px !important;
-			}
-
-			.row-3 .column-1 .block-7.paragraph_block td.pad>div,
-			.row-3 .column-1 .block-8.paragraph_block td.pad>div {
+			.row-3 .column-1 .block-9.paragraph_block td.pad>div,
+			.row-3 .column-1 .block-10.paragraph_block td.pad>div {
 				font-size: 36px !important;
 			}
 
-			.row-3 .column-1 .block-10.paragraph_block td.pad>div,
+			.row-3 .column-1 .block-12.paragraph_block td.pad>div,
 			.row-5 .column-1 .block-1.paragraph_block td.pad>div,
 			.row-6 .column-1 .block-3.paragraph_block td.pad>div,
-			.row-7 .column-1 .block-3.paragraph_block td.pad>div,
-			.row-8 .column-1 .block-3.paragraph_block td.pad>div {
+			.row-8 .column-1 .block-3.paragraph_block td.pad>div,
+			.row-7 .column-1 .block-3.paragraph_block td.pad>div {
 				font-size: 14px !important;
 			}
 
-			.row-3 .column-1 .block-13.spacer_block,
+			.row-3 .column-1 .block-15.spacer_block,
 			.row-4 .column-1 .block-1.spacer_block,
 			.row-4 .column-2 .block-1.spacer_block,
 			.row-4 .column-3 .block-1.spacer_block {
 				height: 20px !important;
 			}
 
-			.row-3 .column-1 .block-12.button_block span,
+			.row-3 .column-1 .block-14.button_block span,
 			.row-10 .column-2 .block-4.button_block span,
 			.row-11 .column-1 .block-4.button_block span {
 				line-height: 28px !important;
@@ -223,12 +222,18 @@ const sendWelcomeEmail = async (user) => {
 				font-size: 20px !important;
 			}
 
-			.row-6 .column-1 .block-1.heading_block h1,
+			.row-6 .column-1 .block-3.paragraph_block td.pad,
+			.row-8 .column-1 .block-3.paragraph_block td.pad,
+			.row-7 .column-1 .block-3.paragraph_block td.pad {
+				padding: 5px 25px 10px 25px !important;
+			}
+
 			.row-6 .column-1 .block-2.paragraph_block td.pad>div,
+			.row-6 .column-1 .block-1.heading_block h1,
 			.row-7 .column-1 .block-1.heading_block h1,
 			.row-7 .column-1 .block-2.paragraph_block td.pad>div,
-			.row-8 .column-1 .block-1.heading_block h1,
-			.row-8 .column-1 .block-2.paragraph_block td.pad>div {
+			.row-8 .column-1 .block-2.paragraph_block td.pad>div,
+			.row-8 .column-1 .block-1.heading_block h1 {
 				font-size: 16px !important;
 			}
 
@@ -238,18 +243,18 @@ const sendWelcomeEmail = async (user) => {
 				padding: 5px 0 !important;
 			}
 
-			.row-6 .column-1 .block-3.paragraph_block td.pad,
-			.row-7 .column-1 .block-3.paragraph_block td.pad,
-			.row-8 .column-1 .block-3.paragraph_block td.pad {
-				padding: 5px 25px 10px 25px !important;
-			}
-
 			.row-10 .column-2 .block-2.paragraph_block td.pad>div,
 			.row-10 .column-2 .block-1.paragraph_block td.pad>div,
 			.row-11 .column-1 .block-1.paragraph_block td.pad>div,
 			.row-11 .column-1 .block-2.paragraph_block td.pad>div {
 				text-align: center !important;
 				font-size: 30px !important;
+			}
+
+			.row-10 .column-2 .block-4.button_block td.pad,
+			.row-11 .column-1 .block-4.button_block td.pad {
+				text-align: center !important;
+				padding: 10px 0 0 0 !important;
 			}
 
 			.row-10 .column-2 .block-3.paragraph_block td.pad>div,
@@ -261,12 +266,6 @@ const sendWelcomeEmail = async (user) => {
 			.row-10 .column-2 .block-3.paragraph_block td.pad,
 			.row-11 .column-1 .block-3.paragraph_block td.pad {
 				padding: 10px 0 !important;
-			}
-
-			.row-10 .column-2 .block-4.button_block td.pad,
-			.row-11 .column-1 .block-4.button_block td.pad {
-				text-align: center !important;
-				padding: 10px 0 0 0 !important;
 			}
 
 			.row-6 .column-1 .col-pad,
@@ -358,16 +357,34 @@ const sendWelcomeEmail = async (user) => {
 															</td>
 														</tr>
 													</table>
-													<div class="spacer_block block-4 mobile_hide" style="height:80px;line-height:80px;font-size:1px;">&#8202;</div>
-													<table class="image_block block-5" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+													<table class="heading_block block-4" width="100%" border="0" cellpadding="10" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+														<tr>
+															<td class="pad" style="width:100%;" align="center">
+																<h1 style="margin: 0; color: #7747FF; direction: ltr; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 38px; font-weight: 700; letter-spacing: normal; line-height: 1.2; text-align: center; margin-top: 0; margin-bottom: 0; mso-line-height-alt: 46px;"><span class="tinyMce-placeholder" style="word-break: break-word; color: #000000;"> Hi, ${user.name || "Reader"}</span></h1>
+															</td>
+														</tr>
+													</table>
+													<table class="divider_block block-5" width="100%" border="0" cellpadding="10" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+														<tr>
+															<td class="pad" align="center">
+																<table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+																	<tr>
+																		<td class="divider_inner" style="font-size: 1px; line-height: 1px; border-top: 1px solid #dddddd;"><span style="word-break: break-word;">&#8202;</span></td>
+																	</tr>
+																</table>
+															</td>
+														</tr>
+													</table>
+													<div class="spacer_block block-6" style="height:60px;line-height:60px;font-size:1px;">&#8202;</div>
+													<table class="image_block block-7" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
 														<tr>
 															<td class="pad" style="width:100%;" align="center">
 																<div style="max-width: 65px;"><img src="https://d1oco4z2z1fhwp.cloudfront.net/templates/default/8741/3_Green_Sparkles.png" style="display: block; height: auto; border: 0; width: 100%;" width="65" alt="" title="" height="auto"></div>
 															</td>
 														</tr>
 													</table>
-													<div class="spacer_block block-6" style="height:20px;line-height:20px;font-size:1px;">&#8202;</div>
-													<table class="paragraph_block block-7" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;">
+													<div class="spacer_block block-8" style="height:20px;line-height:20px;font-size:1px;">&#8202;</div>
+													<table class="paragraph_block block-9" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;">
 														<tr>
 															<td class="pad">
 																<div style="color:#ffffff;font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:60px;font-weight:700;letter-spacing:-1px;line-height:1.2;text-align:center;mso-line-height-alt:72px;">
@@ -376,7 +393,7 @@ const sendWelcomeEmail = async (user) => {
 															</td>
 														</tr>
 													</table>
-													<table class="paragraph_block block-8" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;">
+													<table class="paragraph_block block-10" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;">
 														<tr>
 															<td class="pad">
 																<div style="color:#ffffff;font-family:TimesNewRoman, 'Times New Roman', Times, Beskerville, Georgia, serif;font-size:60px;font-weight:400;letter-spacing:-1px;line-height:1.2;text-align:center;mso-line-height-alt:72px;">
@@ -385,8 +402,8 @@ const sendWelcomeEmail = async (user) => {
 															</td>
 														</tr>
 													</table>
-													<div class="spacer_block block-9" style="height:10px;line-height:10px;font-size:1px;">&#8202;</div>
-													<table class="paragraph_block block-10" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;">
+													<div class="spacer_block block-11" style="height:10px;line-height:10px;font-size:1px;">&#8202;</div>
+													<table class="paragraph_block block-12" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;">
 														<tr>
 															<td class="pad" style="padding-top:10px;padding-left:60px;padding-right:60px;">
 																<div style="color:#ffffff;direction:ltr;font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:16px;font-weight:400;letter-spacing:0px;line-height:1.2;text-align:center;mso-line-height-alt:19px;">
@@ -395,8 +412,8 @@ const sendWelcomeEmail = async (user) => {
 															</td>
 														</tr>
 													</table>
-													<div class="spacer_block block-11" style="height:20px;line-height:20px;font-size:1px;">&#8202;</div>
-													<table class="button_block block-12" width="100%" border="0" cellpadding="10" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+													<div class="spacer_block block-13" style="height:20px;line-height:20px;font-size:1px;">&#8202;</div>
+													<table class="button_block block-14" width="100%" border="0" cellpadding="10" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
 														<tr>
 															<td class="pad" align="center"><a href="https://satinderpoetry.com" target="_blank" style="color:#222222;text-decoration:none;"><!--[if mso]>
 <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word"  href="https://satinderpoetry.com"  style="height:37px;width:187px;v-text-anchor:middle;" arcsize="25%" fillcolor="#ddd988">
@@ -407,8 +424,8 @@ const sendWelcomeEmail = async (user) => {
 <![endif]--><span class="button" style="background-color: #ddd988; border-bottom: 1px solid #222222; border-left: 1px solid #222222; border-radius: 10px; border-right: 1px solid #222222; border-top: 1px solid #222222; color: #222222; display: inline-block; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 14px; font-weight: 400; mso-border-alt: none; text-align: center; width: 30%; word-break: keep-all; letter-spacing: 1px;"><span class="btn-pad" style="word-break: break-word; padding-left: 15px; padding-right: 15px; padding-top: 5px; padding-bottom: 5px; display: block;"><span style="word-break: break-word; line-height: 28px;">EXPLORE POEMS</span></span></span><!--[if mso]></center></v:textbox></v:roundrect><![endif]--></a></td>
 														</tr>
 													</table>
-													<div class="spacer_block block-13" style="height:40px;line-height:40px;font-size:1px;">&#8202;</div>
-													<table class="image_block block-14" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+													<div class="spacer_block block-15" style="height:40px;line-height:40px;font-size:1px;">&#8202;</div>
+													<table class="image_block block-16" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
 														<tr>
 															<td class="pad" style="width:100%;" align="center">
 																<div class="fullWidth" style="max-width: 650px;"><img src="https://d1oco4z2z1fhwp.cloudfront.net/templates/default/8741/Welcome_Thread.png" style="display: block; height: auto; border: 0; width: 100%;" width="650" alt="" title="" height="auto"></div>
@@ -701,7 +718,7 @@ const sendWelcomeEmail = async (user) => {
 													<table class="image_block block-1" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
 														<tr>
 															<td class="pad" style="width:100%;" align="center">
-																<div style="max-width: 270px;"><a href="https://satinderpoetry.com" target="_blank"><img src="https://228fe3e270.imgdist.com/pub/bfra/jp6v7hcl/izb/5jb/smm/ChatGPT%20Image%20May%2023%2C%202026%2C%2010_20_07%20AM.png" style="display: block; height: auto; border: 0; width: 100%;" width="270" alt="Satinder Poetry Image." title="Satinder Poetry Image." height="auto"></a></div>
+																<div style="max-width: 270.83333333333337px;"><a href="https://satinderpoetry.com" target="_blank"><img src="https://228fe3e270.imgdist.com/pub/bfra/jp6v7hcl/izb/5jb/smm/ChatGPT%20Image%20May%2023%2C%202026%2C%2010_20_07%20AM.png" style="display: block; height: auto; border: 0; width: 100%;" width="270.83333333333337" alt="Satinder Poetry Image." title="Satinder Poetry Image." height="auto"></a></div>
 															</td>
 														</tr>
 													</table>
@@ -819,7 +836,14 @@ const sendWelcomeEmail = async (user) => {
 																<table class="image_block block-1" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
 																	<tr>
 																		<td class="pad" style="width:100%;" align="center">
-																			<div style="max-width: 220.83333333333337px;"><a href="https://satinder-portfolio.vercel.app" target="_blank"><img src="" alt="Satinder Poetry Image." title="Satinder Poetry Image." height="auto"></a></div>
+																			<div style="max-width: 220.833px;"><img src="https://228fe3e270.imgdist.com/pub/bfra/jp6v7hcl/qer/qs0/1by/WhatsApp%20Image%202026-05-23%20at%205.37.58%20PM.jpeg" style="display: block; height: auto; border: 0; width: 100%;" width="220.833" alt="" title="" height="auto"></div>
+																		</td>
+																	</tr>
+																</table>
+																<table class="image_block block-2" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+																	<tr>
+																		<td class="pad" style="width:100%;" align="center">
+																			<div style="max-width: 220.83333333333337px;"><a href="https://satinder-portfolio.vercel.app" target="_blank"><img src="https://228fe3e270.imgdist.com/pub/bfra/jp6v7hcl/c9s/4g9/bo6/WhatsApp%20Image%202026-05-23%20at%205.37.57%20PM.jpeg" style="display: block; height: auto; border: 0; width: 100%;" width="220.83333333333337" alt="Satinder Poetry Image." title="Satinder Poetry Image." height="auto"></a></div>
 																		</td>
 																	</tr>
 																</table>
@@ -988,7 +1012,7 @@ const sendWelcomeEmail = async (user) => {
 													<table class="image_block block-1" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
 														<tr>
 															<td class="pad" style="width:100%;" align="center">
-																<div style="max-width: 650px;"><img src="https://228fe3e270.imgdist.com/pub/bfra/jp6v7hcl/vfu/uho/prq/Satinder%20Poetry%20-%20Logo.png" style="display: block; height: auto; border: 0; width: 100%;" width="650" alt="" title="" height="auto"></div>
+																<div style="max-width: 650px;"><a href="https://satinderpoetry.com" target="_blank"><img src="https://228fe3e270.imgdist.com/pub/bfra/jp6v7hcl/vfu/uho/prq/Satinder%20Poetry%20-%20Logo.png" style="display: block; height: auto; border: 0; width: 100%;" width="650" alt="" title="" height="auto"></a></div>
 															</td>
 														</tr>
 													</table>
