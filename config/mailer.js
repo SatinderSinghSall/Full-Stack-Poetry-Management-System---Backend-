@@ -124,20 +124,20 @@ const sendWelcomeEmail = async (user) => {
 				height: 50px !important;
 			}
 
-			.row-3 .column-1 .block-3.paragraph_block td.pad {
-				padding: 10px 25px 0 25px !important;
-			}
-
-			.row-3 .column-1 .block-8.spacer_block {
-				height: 10px !important;
-			}
-
 			.row-3 .column-1 .block-2.divider_block td.pad {
 				padding: 0 25px !important;
 			}
 
 			.row-3 .column-1 .block-2.divider_block td.pad table {
 				display: inline-table;
+			}
+
+			.row-3 .column-1 .block-3.paragraph_block td.pad {
+				padding: 10px 25px 0 25px !important;
+			}
+
+			.row-3 .column-1 .block-8.spacer_block {
+				height: 10px !important;
 			}
 
 			.row-3 .column-1 .block-14.button_block td.pad .button {
@@ -160,7 +160,7 @@ const sendWelcomeEmail = async (user) => {
 				height: 30px !important;
 			}
 
-			.row-11 .column-2 .block-2.image_block td.pad {
+			.row-12 .column-2 .block-2.image_block td.pad {
 				padding: 0 !important;
 			}
 
@@ -172,11 +172,11 @@ const sendWelcomeEmail = async (user) => {
 				padding: 30px !important;
 			}
 
-			.row-11 .column-1 .col-pad {
+			.row-12 .column-1 .col-pad {
 				padding: 30px 30px 20px 30px !important;
 			}
 
-			.row-11 .column-2 .col-pad {
+			.row-12 .column-2 .col-pad {
 				padding: 5px 30px 30px 30px !important;
 			}
 
@@ -186,7 +186,7 @@ const sendWelcomeEmail = async (user) => {
 			}
 
 			.row-1 .column-1 .block-1.image_block td.pad div,
-			.row-11 .column-2 .block-2.image_block td.pad div {
+			.row-12 .column-2 .block-2.image_block td.pad div {
 				margin: 0 auto !important;
 			}
 
@@ -198,13 +198,13 @@ const sendWelcomeEmail = async (user) => {
 			.row-3 .column-1 .block-12.paragraph_block td.pad>div,
 			.row-5 .column-1 .block-1.paragraph_block td.pad>div,
 			.row-6 .column-1 .block-3.paragraph_block td.pad>div,
-			.row-8 .column-1 .block-3.paragraph_block td.pad>div,
-			.row-7 .column-1 .block-3.paragraph_block td.pad>div {
+			.row-7 .column-1 .block-3.paragraph_block td.pad>div,
+			.row-8 .column-1 .block-3.paragraph_block td.pad>div {
 				font-size: 14px !important;
 			}
 
-			.row-3 .column-1 .block-15.spacer_block,
 			.row-4 .column-1 .block-1.spacer_block,
+			.row-3 .column-1 .block-15.spacer_block,
 			.row-4 .column-2 .block-1.spacer_block,
 			.row-4 .column-3 .block-1.spacer_block {
 				height: 20px !important;
@@ -212,7 +212,7 @@ const sendWelcomeEmail = async (user) => {
 
 			.row-3 .column-1 .block-14.button_block span,
 			.row-10 .column-2 .block-4.button_block span,
-			.row-11 .column-1 .block-4.button_block span {
+			.row-12 .column-1 .block-4.button_block span {
 				line-height: 28px !important;
 			}
 
@@ -222,18 +222,12 @@ const sendWelcomeEmail = async (user) => {
 				font-size: 20px !important;
 			}
 
-			.row-6 .column-1 .block-3.paragraph_block td.pad,
-			.row-8 .column-1 .block-3.paragraph_block td.pad,
-			.row-7 .column-1 .block-3.paragraph_block td.pad {
-				padding: 5px 25px 10px 25px !important;
-			}
-
 			.row-6 .column-1 .block-2.paragraph_block td.pad>div,
 			.row-6 .column-1 .block-1.heading_block h1,
 			.row-7 .column-1 .block-1.heading_block h1,
 			.row-7 .column-1 .block-2.paragraph_block td.pad>div,
-			.row-8 .column-1 .block-2.paragraph_block td.pad>div,
-			.row-8 .column-1 .block-1.heading_block h1 {
+			.row-8 .column-1 .block-1.heading_block h1,
+			.row-8 .column-1 .block-2.paragraph_block td.pad>div {
 				font-size: 16px !important;
 			}
 
@@ -243,29 +237,35 @@ const sendWelcomeEmail = async (user) => {
 				padding: 5px 0 !important;
 			}
 
-			.row-10 .column-2 .block-2.paragraph_block td.pad>div,
-			.row-10 .column-2 .block-1.paragraph_block td.pad>div,
-			.row-11 .column-1 .block-1.paragraph_block td.pad>div,
-			.row-11 .column-1 .block-2.paragraph_block td.pad>div {
-				text-align: center !important;
-				font-size: 30px !important;
-			}
-
-			.row-10 .column-2 .block-4.button_block td.pad,
-			.row-11 .column-1 .block-4.button_block td.pad {
-				text-align: center !important;
-				padding: 10px 0 0 0 !important;
+			.row-6 .column-1 .block-3.paragraph_block td.pad,
+			.row-7 .column-1 .block-3.paragraph_block td.pad,
+			.row-8 .column-1 .block-3.paragraph_block td.pad {
+				padding: 5px 25px 10px 25px !important;
 			}
 
 			.row-10 .column-2 .block-3.paragraph_block td.pad>div,
-			.row-11 .column-1 .block-3.paragraph_block td.pad>div {
+			.row-12 .column-1 .block-3.paragraph_block td.pad>div {
 				text-align: center !important;
 				font-size: 14px !important;
 			}
 
 			.row-10 .column-2 .block-3.paragraph_block td.pad,
-			.row-11 .column-1 .block-3.paragraph_block td.pad {
+			.row-12 .column-1 .block-3.paragraph_block td.pad {
 				padding: 10px 0 !important;
+			}
+
+			.row-10 .column-2 .block-1.paragraph_block td.pad>div,
+			.row-10 .column-2 .block-2.paragraph_block td.pad>div,
+			.row-12 .column-1 .block-1.paragraph_block td.pad>div,
+			.row-12 .column-1 .block-2.paragraph_block td.pad>div {
+				text-align: center !important;
+				font-size: 30px !important;
+			}
+
+			.row-10 .column-2 .block-4.button_block td.pad,
+			.row-12 .column-1 .block-4.button_block td.pad {
+				text-align: center !important;
+				padding: 10px 0 0 0 !important;
 			}
 
 			.row-6 .column-1 .col-pad,
@@ -776,7 +776,36 @@ const sendWelcomeEmail = async (user) => {
 							</tr>
 						</tbody>
 					</table>
-					<table class="row row-11" align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-size: auto;">
+					<table class="row row-11" align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+						<tbody>
+							<tr>
+								<td>
+									<table class="row-content stack" align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #f6f5f1; border-radius: 0; color: #000000; width: 650px; margin: 0 auto;" width="650">
+										<tbody>
+											<tr>
+												<td class="column column-1" width="100%" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; font-weight: 400; text-align: left; vertical-align: top;">
+													<table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+														<tr>
+															<td class="col-pad" style="padding-bottom:5px;padding-top:5px;">
+																<table class="image_block block-1" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+																	<tr>
+																		<td class="pad" style="width:100%;" align="center">
+																			<div style="max-width: 650px;"><img src="https://media.beefree.cloud/pub/bfra/jp6v7hcl/6wo/zzz/txk/ChatGPT%20Image%20May%2023%2C%202026%2C%2007_17_56%20PM.png" style="display: block; height: auto; border: 0; width: 100%;" width="650" alt="" title="" height="auto"></div>
+																		</td>
+																	</tr>
+																</table>
+															</td>
+														</tr>
+													</table>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<table class="row row-12" align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-size: auto;">
 						<tbody>
 							<tr>
 								<td>
@@ -858,7 +887,7 @@ const sendWelcomeEmail = async (user) => {
 							</tr>
 						</tbody>
 					</table>
-					<table class="row row-12" align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+					<table class="row row-13" align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
 						<tbody>
 							<tr>
 								<td>
@@ -885,7 +914,7 @@ const sendWelcomeEmail = async (user) => {
 							</tr>
 						</tbody>
 					</table>
-					<table class="row row-13" align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+					<table class="row row-14" align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
 						<tbody>
 							<tr>
 								<td>
@@ -912,7 +941,7 @@ const sendWelcomeEmail = async (user) => {
 							</tr>
 						</tbody>
 					</table>
-					<table class="row row-14" align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+					<table class="row row-15" align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
 						<tbody>
 							<tr>
 								<td>
@@ -935,7 +964,7 @@ const sendWelcomeEmail = async (user) => {
 							</tr>
 						</tbody>
 					</table>
-					<table class="row row-15" align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-size: auto;">
+					<table class="row row-16" align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-size: auto;">
 						<tbody>
 							<tr>
 								<td>
@@ -1001,7 +1030,7 @@ const sendWelcomeEmail = async (user) => {
 							</tr>
 						</tbody>
 					</table>
-					<table class="row row-16" align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+					<table class="row row-17" align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
 						<tbody>
 							<tr>
 								<td>
@@ -1024,7 +1053,7 @@ const sendWelcomeEmail = async (user) => {
 							</tr>
 						</tbody>
 					</table>
-					<table class="row row-17" align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+					<table class="row row-18" align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
 						<tbody>
 							<tr>
 								<td>
