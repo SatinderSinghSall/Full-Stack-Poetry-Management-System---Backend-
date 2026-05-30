@@ -1,5 +1,13 @@
 # Full-Stack-Poetry-Management-System---Backend
 
+---
+
+Full-Stack Poetry Publishing & Content Management Platform
+
+MERN-Based Poetry Publishing Platform with Admin Dashboard & Subscriber System
+
+---
+
 Comprehensive Poetry Management System with admin features for poem addition and a modern dashboard for data analytics with graphical representations.
 
 # Backend README.md
