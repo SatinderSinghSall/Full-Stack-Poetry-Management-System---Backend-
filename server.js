@@ -33,6 +33,8 @@ app.use("/api/poems", require("./routes/poemRoutes"));
 app.use("/api/email", require("./routes/emailRoutes"));
 app.use("/api/subscribe", require("./routes/subscribeRoutes"));
 app.use("/api/users", require("./routes/userRoutes"));
+app.use("/api/books", require("./routes/bookRoutes"));
+app.use("/api/book-suggestions", require("./routes/bookSuggestionRoutes"));
 
 // Health check
 app.get("/", (req, res) => {
