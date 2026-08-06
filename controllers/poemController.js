@@ -1,7 +1,7 @@
 const Poem = require("../models/Poem");
 const User = require("../models/User");
 const SubscribeEmail = require("../models/SubscribeEmail");
-
+const PoemSubmission = require("../models/PoemSubmission");
 const { sendMail } = require("../config/mailer");
 
 // NEW: reading time helper
@@ -41,31 +41,23 @@ const addPoem = async (req, res) => {
       status,
       featured,
       readingTime: calculateReadingTime(content),
-
       addedBy: req.user._id,
     });
 
     const savedPoem = await poem.save();
 
     if (sendNotification && status === "published") {
-      // registered users
       const users = await User.find({ email: { $exists: true } }, { email: 1 });
-
-      // newsletter subscribers
       const subscribers = await SubscribeEmail.find(
         { email: { $exists: true } },
         { email: 1 },
       );
 
-      // merge + remove duplicates
       const allEmails = [
         ...users.map((u) => u.email),
         ...subscribers.map((s) => s.email),
       ];
-
       const uniqueEmails = [...new Set(allEmails)];
-
-      // convert to same structure
       const recipients = uniqueEmails.map((email) => ({ email }));
 
       if (recipients.length > 0) {
@@ -105,15 +97,10 @@ const notifyAllUsers = async (users, poem) => {
               <title>New Poem</title>
             </head>
             <body style="margin:0; padding:0; background-color:#f4f6f8; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
-
               <table width="100%" cellpadding="0" cellspacing="0">
                 <tr>
                   <td align="center" style="padding:40px 16px;">
-                    
-                    <!-- Container -->
                     <table width="100%" max-width="600" cellpadding="0" cellspacing="0" style="max-width:600px; background:#ffffff; border-radius:12px; overflow:hidden; box-shadow:0 10px 30px rgba(0,0,0,0.08);">
-                      
-                      <!-- Header -->
                       <tr>
                         <td style="background:linear-gradient(135deg,#0f2027,#203a43,#2c5364); padding:32px; text-align:center;">
                           <h1 style="margin:0; color:#ffffff; font-size:26px; letter-spacing:0.5px;">
@@ -124,31 +111,24 @@ const notifyAllUsers = async (users, poem) => {
                           </p>
                         </td>
                       </tr>
-
-                      <!-- Content -->
                       <tr>
                         <td style="padding:32px;">
                           <h2 style="margin-top:0; color:#2d3436; font-size:22px;">
                             📜 ${poem.title}
                           </h2>
-
                           <p style="color:#636e72; margin:8px 0 24px;">
                             By <strong>${poem.author}</strong>
                           </p>
-
                           <p style="color:#444; line-height:1.6;">
                             A fresh piece of poetry has just been published on <strong>Satinder Poetry</strong>.
                             Dive into words crafted to make you pause, feel, and reflect.
                           </p>
-
-                          <!-- Button -->
                           <div style="margin:32px 0; text-align:center;">
                             <a href="https://satinderpoetry.com/poems/${poem._id}"
                               style="display:inline-block; padding:14px 28px; background:#2c5364; color:#ffffff; text-decoration:none; border-radius:30px; font-weight:600; font-size:15px;">
                               Read the Poem →
                             </a>
                           </div>
-
                           <div style="text-align:center;">
                             <a href="https://satinderpoetry.com/poems"
                               style="color:#0984e3; text-decoration:none; font-size:14px;">
@@ -157,25 +137,19 @@ const notifyAllUsers = async (users, poem) => {
                           </div>
                         </td>
                       </tr>
-
-                      <!-- Divider -->
                       <tr>
                         <td style="padding:0 32px;">
                           <hr style="border:none; border-top:1px solid #ecf0f1;">
                         </td>
                       </tr>
-
-                      <!-- Footer -->
                       <tr>
                         <td style="padding:24px 32px; font-size:13px; color:#636e72;">
                           <p style="margin-top:0;">
                             You’re receiving this email because you’re part of the Satinder Poetry community.
                           </p>
-
                           <p style="margin:16px 0 4px; font-weight:600; color:#2d3436;">
                             — Satinder Singh Sall
                           </p>
-
                           <p style="margin:0;">
                             ✉️ <a href="mailto:satindersinghsall111@gmail.com" style="color:#0984e3; text-decoration:none;">satindersinghsall111@gmail.com</a><br/>
                             🌐 <a href="https://satinder-portfolio.vercel.app" style="color:#0984e3; text-decoration:none;">My Portfolio</a> |
@@ -184,18 +158,13 @@ const notifyAllUsers = async (users, poem) => {
                           </p>
                         </td>
                       </tr>
-
                     </table>
-
-                    <!-- Footer note -->
                     <p style="margin-top:24px; font-size:12px; color:#b2bec3;">
                       © ${new Date().getFullYear()} Satinder Poetry
                     </p>
-
                   </td>
                 </tr>
               </table>
-
             </body>
             </html>
             `,
@@ -210,7 +179,6 @@ const notifyAllUsers = async (users, poem) => {
       console.error("❌ Email batch failed:", err);
     }
 
-    // wait 1 second to respect rate limit
     await delay(1000);
   }
 
@@ -221,14 +189,12 @@ const notifyAllUsers = async (users, poem) => {
 const getPoems = async (req, res) => {
   try {
     const { theme, tag, status } = req.query;
-
     const filter = {};
     if (theme) filter.theme = theme;
     if (tag) filter.tags = tag;
     if (status) filter.status = status;
 
     const poems = await Poem.find(filter).sort({ createdAt: -1 });
-
     res.json(poems);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -277,7 +243,6 @@ const updatePoem = async (req, res) => {
     poem.title = title ?? poem.title;
     poem.content = content ?? poem.content;
     poem.author = author ?? poem.author;
-
     poem.summary = summary ?? poem.summary;
     poem.theme = theme ?? poem.theme;
     poem.tags = tags ?? poem.tags;
@@ -312,15 +277,168 @@ const deletePoem = async (req, res) => {
   }
 };
 
-// NEW: Like Poem
+// Like Poem
 const likePoem = async (req, res) => {
-  const poem = await Poem.findByIdAndUpdate(
-    req.params.id,
-    { $inc: { likes: 1 } },
-    { new: true },
-  );
+  try {
+    const poem = await Poem.findByIdAndUpdate(
+      req.params.id,
+      { $inc: { likes: 1 } },
+      { new: true },
+    );
 
-  res.json({ likes: poem.likes });
+    if (!poem) return res.status(404).json({ message: "Poem not found" });
+
+    res.json({ likes: poem.likes });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+// @desc    Submit a poem draft for admin review
+// @route   POST /api/poems/submit-draft
+// @access  Private (Authenticated users)
+const submitPoemDraft = async (req, res) => {
+  try {
+    const { title, genre, content, noteToAdmin } = req.body;
+
+    if (!title || !genre || !content) {
+      return res
+        .status(400)
+        .json({ message: "Please fill in all required fields." });
+    }
+
+    const newSubmission = await PoemSubmission.create({
+      user: req.user._id,
+      title,
+      genre,
+      content,
+      noteToAdmin,
+    });
+
+    res.status(201).json({
+      success: true,
+      message: "Submission sent for review!",
+      data: newSubmission,
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message || "Server Error" });
+  }
+};
+
+// @desc    Get all pending poem submissions (Admin only)
+// @route   GET /api/poems/submissions
+// @access  Private/Admin
+const getPoemSubmissions = async (req, res) => {
+  try {
+    const submissions = await PoemSubmission.find()
+      .populate("user", "name email")
+      .sort({ createdAt: -1 });
+
+    res.json(submissions);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// @desc    Approve submission and publish as a real Poem
+// @route   PUT /api/poems/submissions/:id/approve
+// @access  Private/Admin
+const approvePoemSubmission = async (req, res) => {
+  try {
+    const submission = await PoemSubmission.findById(req.params.id);
+
+    if (!submission) {
+      return res.status(404).json({ message: "Submission not found" });
+    }
+
+    if (submission.status === "approved") {
+      return res
+        .status(400)
+        .json({ message: "Submission is already approved" });
+    }
+
+    // 1. Create entry in main Poem collection
+    const approvedPoem = new Poem({
+      title: submission.title,
+      content: submission.content,
+      author: req.body.author || "Community Contributor",
+      theme: submission.genre || "Poetry",
+      summary: req.body.summary || "",
+      readingTime: calculateReadingTime(submission.content),
+      status: "published",
+      addedBy: submission.user,
+    });
+
+    await approvedPoem.save();
+
+    // 2. Update submission status
+    submission.status = "approved";
+    await submission.save();
+
+    res.json({
+      message: "Poem approved and published successfully!",
+      poem: approvedPoem,
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// @desc    Reject a poem submission
+// @route   PUT /api/poems/submissions/:id/reject
+// @access  Private/Admin
+const rejectPoemSubmission = async (req, res) => {
+  try {
+    const submission = await PoemSubmission.findById(req.params.id);
+
+    if (!submission) {
+      return res.status(404).json({ message: "Submission not found" });
+    }
+
+    submission.status = "rejected";
+    await submission.save();
+
+    res.json({ message: "Submission rejected", submission });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// @desc    Delete a poem submission permanently
+// @route   DELETE /api/poems/submissions/:id
+// @access  Private/Admin
+const deletePoemSubmission = async (req, res) => {
+  try {
+    const submission = await PoemSubmission.findByIdAndDelete(req.params.id);
+
+    if (!submission) {
+      return res.status(404).json({ message: "Submission not found" });
+    }
+
+    res.json({ message: "Submission deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// @desc    Reset a poem submission status to pending
+// @route   PUT /api/poems/submissions/:id/pending
+// @access  Private/Admin
+const resetPoemSubmissionToPending = async (req, res) => {
+  try {
+    const submission = await PoemSubmission.findById(req.params.id);
+
+    if (!submission) {
+      return res.status(404).json({ message: "Submission not found" });
+    }
+
+    submission.status = "pending";
+    await submission.save();
+
+    res.json({ message: "Submission reset to pending", submission });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 };
 
 module.exports = {
@@ -330,4 +448,10 @@ module.exports = {
   updatePoem,
   deletePoem,
   likePoem,
+  submitPoemDraft,
+  getPoemSubmissions,
+  approvePoemSubmission,
+  rejectPoemSubmission,
+  deletePoemSubmission,
+  resetPoemSubmissionToPending,
 };
