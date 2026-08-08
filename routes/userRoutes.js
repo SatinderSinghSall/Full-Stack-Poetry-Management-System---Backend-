@@ -38,4 +38,31 @@ router.get("/me", protect, async (req, res) => {
   }
 });
 
+// @route   PATCH /api/users/:id/role
+// @desc    Update a user's role
+// @access  Private/Admin
+router.patch("/:id/role", async (req, res) => {
+  try {
+    const { role } = req.body;
+
+    if (!role || !["user", "admin"].includes(role)) {
+      return res.status(400).json({ message: "Invalid role specified" });
+    }
+
+    const user = await User.findByIdAndUpdate(
+      req.params.id,
+      { role },
+      { new: true, runValidators: true },
+    ).select("-password");
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.json({ message: "User role updated successfully", user });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 module.exports = router;

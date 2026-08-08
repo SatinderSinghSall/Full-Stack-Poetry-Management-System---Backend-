@@ -4,80 +4,63 @@ const SubscribeEmail = require("../models/SubscribeEmail");
 const PoemSubmission = require("../models/PoemSubmission");
 const { sendMail } = require("../config/mailer");
 
-// NEW: reading time helper
+// @desc    Calculate reading time in minutes based on word count
+// @route   N/A (Helper)
+// @access  Internal
 const calculateReadingTime = (text = "") => {
   const words = text.trim().split(/\s+/).filter(Boolean).length;
   return Math.max(1, Math.ceil(words / 200));
 };
 
-// Add Poem (Admin Only)
-const addPoem = async (req, res) => {
-  const {
-    title,
-    content,
-    author,
-    summary,
-    theme,
-    tags = [],
-    coverImage,
-    status = "published",
-    featured = false,
-    sendNotification = true,
-  } = req.body;
+// @desc    Centralized handler for Mongoose validation, duplicate keys, and runtime errors
+// @route   N/A (Helper)
+// @access  Internal
+const handleControllerError = (
+  res,
+  error,
+  defaultMessage = "An unexpected error occurred",
+) => {
+  console.error("Controller Error Log:", error);
 
-  if (!req.user || req.user.role !== "admin") {
-    return res.status(403).json({ message: "Access denied, Admins only" });
-  }
-
-  try {
-    const poem = new Poem({
-      title,
-      content,
-      author,
-      summary,
-      theme,
-      tags,
-      coverImage,
-      status,
-      featured,
-      readingTime: calculateReadingTime(content),
-      addedBy: req.user._id,
+  // Mongoose Schema Validation Error
+  if (error.name === "ValidationError") {
+    const errors = Object.values(error.errors).map((e) => e.message);
+    return res.status(400).json({
+      message: "Validation failed",
+      errors,
     });
-
-    const savedPoem = await poem.save();
-
-    if (sendNotification && status === "published") {
-      const users = await User.find({ email: { $exists: true } }, { email: 1 });
-      const subscribers = await SubscribeEmail.find(
-        { email: { $exists: true } },
-        { email: 1 },
-      );
-
-      const allEmails = [
-        ...users.map((u) => u.email),
-        ...subscribers.map((s) => s.email),
-      ];
-      const uniqueEmails = [...new Set(allEmails)];
-      const recipients = uniqueEmails.map((email) => ({ email }));
-
-      if (recipients.length > 0) {
-        notifyAllUsers(recipients, savedPoem).catch((err) =>
-          console.error("User email notify failed:", err),
-        );
-      }
-    }
-
-    res.status(201).json(savedPoem);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
   }
+
+  // Mongoose Duplicate Key Error
+  if (error.code === 11000) {
+    const field = Object.keys(error.keyValue)[0] || "field";
+    return res.status(409).json({
+      message: `A record with this ${field} already exists.`,
+    });
+  }
+
+  // Invalid ObjectId Format
+  if (error.name === "CastError") {
+    return res.status(400).json({
+      message: `Invalid ID format for ${error.path}`,
+    });
+  }
+
+  return res.status(500).json({
+    message: error.message || defaultMessage,
+  });
 };
 
-// notify all registered users
-const delay = (ms) => new Promise((res) => setTimeout(res, ms));
+// @desc    Utility delay function for rate-limited batch dispatches
+// @route   N/A (Helper)
+// @access  Internal
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
+// @desc    Notify all registered users and subscribers about a new published poem
+// @route   N/A (Helper)
+// @access  Internal
 const notifyAllUsers = async (users, poem) => {
-  const BATCH_SIZE = 2; // Resend allows 2 req/sec
+  const BATCH_SIZE = 2; // Resend limit: 2 requests/sec
 
   for (let i = 0; i < users.length; i += BATCH_SIZE) {
     const batch = users.slice(i, i + BATCH_SIZE);
@@ -100,7 +83,7 @@ const notifyAllUsers = async (users, poem) => {
               <table width="100%" cellpadding="0" cellspacing="0">
                 <tr>
                   <td align="center" style="padding:40px 16px;">
-                    <table width="100%" max-width="600" cellpadding="0" cellspacing="0" style="max-width:600px; background:#ffffff; border-radius:12px; overflow:hidden; box-shadow:0 10px 30px rgba(0,0,0,0.08);">
+                    <table width="100%" cellpadding="0" cellspacing="0" style="max-width:600px; background:#ffffff; border-radius:12px; overflow:hidden; box-shadow:0 10px 30px rgba(0,0,0,0.08);">
                       <tr>
                         <td style="background:linear-gradient(135deg,#0f2027,#203a43,#2c5364); padding:32px; text-align:center;">
                           <h1 style="margin:0; color:#ffffff; font-size:26px; letter-spacing:0.5px;">
@@ -185,7 +168,94 @@ const notifyAllUsers = async (users, poem) => {
   console.log("✅ All emails processed safely");
 };
 
-// Get All Poems
+// ==========================================
+// POEM MANAGEMENT CONTROLLERS
+// ==========================================
+
+// @desc    Add a new poem
+// @route   POST /api/poems
+// @access  Private/Admin
+const addPoem = async (req, res) => {
+  if (!req.user || req.user.role !== "admin") {
+    return res
+      .status(403)
+      .json({ message: "Access denied. Admin privileges required." });
+  }
+
+  const {
+    title,
+    content,
+    author,
+    summary,
+    theme,
+    tags = [],
+    coverImage,
+    status = "published",
+    featured = false,
+    sendNotification = true,
+  } = req.body;
+
+  const validationErrors = [];
+  if (!title?.trim()) validationErrors.push("Title is required.");
+  if (!author?.trim()) validationErrors.push("Author is required.");
+  if (!content?.trim()) validationErrors.push("Content is required.");
+
+  if (validationErrors.length > 0) {
+    return res.status(400).json({
+      message: "Missing or invalid required fields.",
+      errors: validationErrors,
+    });
+  }
+
+  try {
+    const poem = new Poem({
+      title: title.trim(),
+      content: content.trim(),
+      author: author.trim(),
+      summary: summary?.trim(),
+      theme: theme?.trim(),
+      tags: Array.isArray(tags)
+        ? tags.map((t) => t.trim()).filter(Boolean)
+        : [],
+      coverImage: coverImage?.trim(),
+      status,
+      featured,
+      readingTime: calculateReadingTime(content),
+      addedBy: req.user._id,
+    });
+
+    const savedPoem = await poem.save();
+
+    if (sendNotification && status === "published") {
+      const users = await User.find({ email: { $exists: true } }, { email: 1 });
+      const subscribers = await SubscribeEmail.find(
+        { email: { $exists: true } },
+        { email: 1 },
+      );
+
+      const allEmails = [
+        ...users.map((u) => u.email),
+        ...subscribers.map((s) => s.email),
+      ];
+      const uniqueEmails = [...new Set(allEmails)];
+      const recipients = uniqueEmails.map((email) => ({ email }));
+
+      if (recipients.length > 0) {
+        notifyAllUsers(recipients, savedPoem).catch((err) =>
+          console.error("User email notify failed:", err),
+        );
+      }
+    }
+
+    res.status(201).json(savedPoem);
+  } catch (error) {
+    handleControllerError(res, error, "Failed to create poem");
+  }
+};
+
+// @desc    Get all poems (with filter options)
+// @route   GET /api/poems
+// @access  Public
 const getPoems = async (req, res) => {
   try {
     const { theme, tag, status } = req.query;
@@ -197,11 +267,13 @@ const getPoems = async (req, res) => {
     const poems = await Poem.find(filter).sort({ createdAt: -1 });
     res.json(poems);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    handleControllerError(res, error, "Failed to fetch poems");
   }
 };
 
-// Get Single Poem by ID
+// @desc    Get single poem by ID and increment view count
+// @route   GET /api/poems/:id
+// @access  Public
 const getPoemById = async (req, res) => {
   try {
     const poem = await Poem.findByIdAndUpdate(
@@ -210,18 +282,24 @@ const getPoemById = async (req, res) => {
       { new: true },
     );
 
-    if (!poem) return res.status(404).json({ message: "Poem not found" });
+    if (!poem) {
+      return res.status(404).json({ message: "Poem not found" });
+    }
 
     res.json(poem);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    handleControllerError(res, error, "Failed to fetch poem details");
   }
 };
 
-// Update Poem (Admin Only)
+// @desc    Update an existing poem
+// @route   PUT /api/poems/:id
+// @access  Private/Admin
 const updatePoem = async (req, res) => {
   if (!req.user || req.user.role !== "admin") {
-    return res.status(403).json({ message: "Admins only" });
+    return res
+      .status(403)
+      .json({ message: "Access denied. Admin privileges required." });
   }
 
   const {
@@ -238,46 +316,59 @@ const updatePoem = async (req, res) => {
 
   try {
     const poem = await Poem.findById(req.params.id);
-    if (!poem) return res.status(404).json({ message: "Poem not found" });
+    if (!poem) {
+      return res.status(404).json({ message: "Poem not found" });
+    }
 
-    poem.title = title ?? poem.title;
-    poem.content = content ?? poem.content;
-    poem.author = author ?? poem.author;
-    poem.summary = summary ?? poem.summary;
-    poem.theme = theme ?? poem.theme;
-    poem.tags = tags ?? poem.tags;
-    poem.coverImage = coverImage ?? poem.coverImage;
-    poem.status = status ?? poem.status;
-    poem.featured = featured ?? poem.featured;
-
-    if (content) {
+    if (title !== undefined) poem.title = title.trim();
+    if (content !== undefined) {
+      poem.content = content.trim();
       poem.readingTime = calculateReadingTime(content);
     }
+    if (author !== undefined) poem.author = author.trim();
+    if (summary !== undefined) poem.summary = summary.trim();
+    if (theme !== undefined) poem.theme = theme.trim();
+    if (tags !== undefined) {
+      poem.tags = Array.isArray(tags)
+        ? tags.map((t) => t.trim()).filter(Boolean)
+        : [];
+    }
+    if (coverImage !== undefined) poem.coverImage = coverImage.trim();
+    if (status !== undefined) poem.status = status;
+    if (featured !== undefined) poem.featured = featured;
 
     const updated = await poem.save();
     res.json(updated);
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    handleControllerError(res, err, "Failed to update poem");
   }
 };
 
-// Delete Poem (Admin Only)
+// @desc    Delete a poem
+// @route   DELETE /api/poems/:id
+// @access  Private/Admin
 const deletePoem = async (req, res) => {
   if (!req.user || req.user.role !== "admin") {
-    return res.status(403).json({ message: "Admins only" });
+    return res
+      .status(403)
+      .json({ message: "Access denied. Admin privileges required." });
   }
 
   try {
     const poem = await Poem.findByIdAndDelete(req.params.id);
-    if (!poem) return res.status(404).json({ message: "Poem not found" });
+    if (!poem) {
+      return res.status(404).json({ message: "Poem not found" });
+    }
 
     res.json({ message: "Poem deleted successfully" });
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    handleControllerError(res, err, "Failed to delete poem");
   }
 };
 
-// Like Poem
+// @desc    Like a poem and increment like count
+// @route   PUT /api/poems/:id/like
+// @access  Public
 const likePoem = async (req, res) => {
   try {
     const poem = await Poem.findByIdAndUpdate(
@@ -286,13 +377,19 @@ const likePoem = async (req, res) => {
       { new: true },
     );
 
-    if (!poem) return res.status(404).json({ message: "Poem not found" });
+    if (!poem) {
+      return res.status(404).json({ message: "Poem not found" });
+    }
 
     res.json({ likes: poem.likes });
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    handleControllerError(res, err, "Failed to record like");
   }
 };
+
+// ==========================================
+// POEM SUBMISSION CONTROLLERS
+// ==========================================
 
 // @desc    Submit a poem draft for admin review
 // @route   POST /api/poems/submit-draft
@@ -301,18 +398,24 @@ const submitPoemDraft = async (req, res) => {
   try {
     const { title, genre, content, noteToAdmin } = req.body;
 
-    if (!title || !genre || !content) {
-      return res
-        .status(400)
-        .json({ message: "Please fill in all required fields." });
+    const errors = [];
+    if (!title?.trim()) errors.push("Title is required.");
+    if (!genre?.trim()) errors.push("Genre is required.");
+    if (!content?.trim()) errors.push("Content is required.");
+
+    if (errors.length > 0) {
+      return res.status(400).json({
+        message: "Missing required fields.",
+        errors,
+      });
     }
 
     const newSubmission = await PoemSubmission.create({
       user: req.user._id,
-      title,
-      genre,
-      content,
-      noteToAdmin,
+      title: title.trim(),
+      genre: genre.trim(),
+      content: content.trim(),
+      noteToAdmin: noteToAdmin?.trim(),
     });
 
     res.status(201).json({
@@ -321,14 +424,20 @@ const submitPoemDraft = async (req, res) => {
       data: newSubmission,
     });
   } catch (error) {
-    res.status(500).json({ message: error.message || "Server Error" });
+    handleControllerError(res, error, "Failed to submit draft");
   }
 };
 
-// @desc    Get all pending poem submissions (Admin only)
+// @desc    Get all pending poem submissions
 // @route   GET /api/poems/submissions
 // @access  Private/Admin
 const getPoemSubmissions = async (req, res) => {
+  if (!req.user || req.user.role !== "admin") {
+    return res
+      .status(403)
+      .json({ message: "Access denied. Admin privileges required." });
+  }
+
   try {
     const submissions = await PoemSubmission.find()
       .populate("user", "name email")
@@ -336,7 +445,7 @@ const getPoemSubmissions = async (req, res) => {
 
     res.json(submissions);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    handleControllerError(res, error, "Failed to retrieve submissions");
   }
 };
 
@@ -344,6 +453,12 @@ const getPoemSubmissions = async (req, res) => {
 // @route   PUT /api/poems/submissions/:id/approve
 // @access  Private/Admin
 const approvePoemSubmission = async (req, res) => {
+  if (!req.user || req.user.role !== "admin") {
+    return res
+      .status(403)
+      .json({ message: "Access denied. Admin privileges required." });
+  }
+
   try {
     const submission = await PoemSubmission.findById(req.params.id);
 
@@ -357,13 +472,12 @@ const approvePoemSubmission = async (req, res) => {
         .json({ message: "Submission is already approved" });
     }
 
-    // 1. Create entry in main Poem collection
     const approvedPoem = new Poem({
       title: submission.title,
       content: submission.content,
-      author: req.body.author || "Community Contributor",
+      author: req.body.author?.trim() || "Community Contributor",
       theme: submission.genre || "Poetry",
-      summary: req.body.summary || "",
+      summary: req.body.summary?.trim() || "",
       readingTime: calculateReadingTime(submission.content),
       status: "published",
       addedBy: submission.user,
@@ -371,7 +485,6 @@ const approvePoemSubmission = async (req, res) => {
 
     await approvedPoem.save();
 
-    // 2. Update submission status
     submission.status = "approved";
     await submission.save();
 
@@ -380,7 +493,7 @@ const approvePoemSubmission = async (req, res) => {
       poem: approvedPoem,
     });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    handleControllerError(res, error, "Failed to approve submission");
   }
 };
 
@@ -388,6 +501,12 @@ const approvePoemSubmission = async (req, res) => {
 // @route   PUT /api/poems/submissions/:id/reject
 // @access  Private/Admin
 const rejectPoemSubmission = async (req, res) => {
+  if (!req.user || req.user.role !== "admin") {
+    return res
+      .status(403)
+      .json({ message: "Access denied. Admin privileges required." });
+  }
+
   try {
     const submission = await PoemSubmission.findById(req.params.id);
 
@@ -400,7 +519,7 @@ const rejectPoemSubmission = async (req, res) => {
 
     res.json({ message: "Submission rejected", submission });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    handleControllerError(res, error, "Failed to reject submission");
   }
 };
 
@@ -408,6 +527,12 @@ const rejectPoemSubmission = async (req, res) => {
 // @route   DELETE /api/poems/submissions/:id
 // @access  Private/Admin
 const deletePoemSubmission = async (req, res) => {
+  if (!req.user || req.user.role !== "admin") {
+    return res
+      .status(403)
+      .json({ message: "Access denied. Admin privileges required." });
+  }
+
   try {
     const submission = await PoemSubmission.findByIdAndDelete(req.params.id);
 
@@ -417,7 +542,7 @@ const deletePoemSubmission = async (req, res) => {
 
     res.json({ message: "Submission deleted successfully" });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    handleControllerError(res, error, "Failed to delete submission");
   }
 };
 
@@ -425,6 +550,12 @@ const deletePoemSubmission = async (req, res) => {
 // @route   PUT /api/poems/submissions/:id/pending
 // @access  Private/Admin
 const resetPoemSubmissionToPending = async (req, res) => {
+  if (!req.user || req.user.role !== "admin") {
+    return res
+      .status(403)
+      .json({ message: "Access denied. Admin privileges required." });
+  }
+
   try {
     const submission = await PoemSubmission.findById(req.params.id);
 
@@ -437,7 +568,7 @@ const resetPoemSubmissionToPending = async (req, res) => {
 
     res.json({ message: "Submission reset to pending", submission });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    handleControllerError(res, error, "Failed to reset submission");
   }
 };
 

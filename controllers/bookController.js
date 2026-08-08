@@ -1,6 +1,49 @@
 const Book = require("../models/Book");
 
-// @desc    Get all books
+// @desc    Centralized handler for Mongoose validation, duplicate keys, and runtime errors
+// @route   N/A (Helper)
+// @access  Internal
+const handleControllerError = (
+  res,
+  error,
+  defaultMessage = "An unexpected error occurred",
+) => {
+  console.error("Book Controller Error Log:", error);
+
+  // Mongoose Schema Validation Error
+  if (error.name === "ValidationError") {
+    const errors = Object.values(error.errors).map((e) => e.message);
+    return res.status(400).json({
+      message: "Validation failed",
+      errors,
+    });
+  }
+
+  // Mongoose Duplicate Key Error
+  if (error.code === 11000) {
+    const field = Object.keys(error.keyValue)[0] || "field";
+    return res.status(409).json({
+      message: `A record with this ${field} already exists.`,
+    });
+  }
+
+  // Invalid ObjectId Format
+  if (error.name === "CastError") {
+    return res.status(400).json({
+      message: `Invalid ID format for ${error.path}`,
+    });
+  }
+
+  return res.status(500).json({
+    message: error.message || defaultMessage,
+  });
+};
+
+// ==========================================
+// BOOK CONTROLLERS
+// ==========================================
+
+// @desc    Get all books (with optional filtering)
 // @route   GET /api/books
 // @access  Public
 const getBooks = async (req, res) => {
@@ -15,9 +58,7 @@ const getBooks = async (req, res) => {
     const books = await Book.find(filter).sort({ createdAt: -1 });
     res.status(200).json(books);
   } catch (error) {
-    res
-      .status(500)
-      .json({ message: "Failed to fetch books", error: error.message });
+    handleControllerError(res, error, "Failed to fetch books");
   }
 };
 
@@ -32,9 +73,7 @@ const getBookById = async (req, res) => {
     }
     res.status(200).json(book);
   } catch (error) {
-    res
-      .status(500)
-      .json({ message: "Error fetching book", error: error.message });
+    handleControllerError(res, error, "Error fetching book details");
   }
 };
 
@@ -42,6 +81,12 @@ const getBookById = async (req, res) => {
 // @route   POST /api/books
 // @access  Private/Admin
 const createBook = async (req, res) => {
+  if (!req.user || req.user.role !== "admin") {
+    return res
+      .status(403)
+      .json({ message: "Access denied. Admin privileges required." });
+  }
+
   try {
     const {
       title,
@@ -58,33 +103,39 @@ const createBook = async (req, res) => {
       type,
     } = req.body;
 
-    if (!title || !author || !description) {
-      return res
-        .status(400)
-        .json({ message: "Title, author, and description are required." });
+    const validationErrors = [];
+    if (!title?.trim()) validationErrors.push("Title is required.");
+    if (!author?.trim()) validationErrors.push("Author is required.");
+    if (!description?.trim()) validationErrors.push("Description is required.");
+
+    if (validationErrors.length > 0) {
+      return res.status(400).json({
+        message: "Missing or invalid required fields.",
+        errors: validationErrors,
+      });
     }
 
     const newBook = new Book({
-      title,
-      author,
-      description,
+      title: title.trim(),
+      author: author.trim(),
+      description: description.trim(),
       price: price !== undefined ? price : 0,
-      genre,
-      buyUrl,
-      coverImage,
-      tags: Array.isArray(tags) ? tags : [],
+      genre: genre?.trim(),
+      buyUrl: buyUrl?.trim(),
+      coverImage: coverImage?.trim(),
+      tags: Array.isArray(tags)
+        ? tags.map((t) => t.trim()).filter(Boolean)
+        : [],
       status: status || "published",
       featured: Boolean(featured),
-      category: category || "Literature",
-      type: type || "recommended",
+      category: category?.trim() || "Literature",
+      type: type?.trim() || "recommended",
     });
 
     const savedBook = await newBook.save();
     res.status(201).json(savedBook);
   } catch (error) {
-    res
-      .status(500)
-      .json({ message: "Failed to add book", error: error.message });
+    handleControllerError(res, error, "Failed to add book");
   }
 };
 
@@ -92,6 +143,12 @@ const createBook = async (req, res) => {
 // @route   PUT /api/books/:id
 // @access  Private/Admin
 const updateBook = async (req, res) => {
+  if (!req.user || req.user.role !== "admin") {
+    return res
+      .status(403)
+      .json({ message: "Access denied. Admin privileges required." });
+  }
+
   try {
     const updatedBook = await Book.findByIdAndUpdate(
       req.params.id,
@@ -105,9 +162,7 @@ const updateBook = async (req, res) => {
 
     res.status(200).json(updatedBook);
   } catch (error) {
-    res
-      .status(500)
-      .json({ message: "Failed to update book", error: error.message });
+    handleControllerError(res, error, "Failed to update book");
   }
 };
 
@@ -115,6 +170,12 @@ const updateBook = async (req, res) => {
 // @route   DELETE /api/books/:id
 // @access  Private/Admin
 const deleteBook = async (req, res) => {
+  if (!req.user || req.user.role !== "admin") {
+    return res
+      .status(403)
+      .json({ message: "Access denied. Admin privileges required." });
+  }
+
   try {
     const book = await Book.findById(req.params.id);
     if (!book) {
@@ -124,9 +185,7 @@ const deleteBook = async (req, res) => {
     await book.deleteOne();
     res.status(200).json({ message: "Book removed successfully" });
   } catch (error) {
-    res
-      .status(500)
-      .json({ message: "Failed to delete book", error: error.message });
+    handleControllerError(res, error, "Failed to delete book");
   }
 };
 
