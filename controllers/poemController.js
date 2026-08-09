@@ -77,74 +77,152 @@ const notifyAllUsers = async (users, poem) => {
             <head>
               <meta charset="UTF-8" />
               <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-              <title>New Poem</title>
+              <title>New Poem Published</title>
             </head>
             <body style="margin:0; padding:0; background-color:#f4f6f8; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
               <table width="100%" cellpadding="0" cellspacing="0">
                 <tr>
-                  <td align="center" style="padding:40px 16px;">
-                    <table width="100%" cellpadding="0" cellspacing="0" style="max-width:600px; background:#ffffff; border-radius:12px; overflow:hidden; box-shadow:0 10px 30px rgba(0,0,0,0.08);">
+                  <td align="center" style="padding:32px 16px;">
+                    <table width="100%" cellpadding="0" cellspacing="0" style="max-width:600px; background:#ffffff; border-radius:16px; overflow:hidden; box-shadow:0 12px 35px rgba(0,0,0,0.06); border: 1px solid #e2e8f0;">
+                      
+                      <!-- BRAND HEADER -->
                       <tr>
-                        <td style="background:linear-gradient(135deg,#0f2027,#203a43,#2c5364); padding:32px; text-align:center;">
-                          <h1 style="margin:0; color:#ffffff; font-size:26px; letter-spacing:0.5px;">
-                            ✒️ Satinder Poetry
+                        <td style="background:#0f172a; padding:24px 32px; border-bottom:3px solid #8b5cf6;">
+                          <table width="100%" cellpadding="0" cellspacing="0">
+                            <tr>
+                              <td align="left">
+                                <span style="color:#ffffff; font-size:18px; font-weight:700; letter-spacing:0.5px; text-transform:uppercase;">
+                                  ✒️ Satinder Poetry
+                                </span>
+                              </td>
+                              <td align="right">
+                                <span style="background:rgba(139,92,246,0.25); color:#ddd6fe; font-size:11px; font-weight:600; padding:4px 10px; border-radius:12px; text-transform:uppercase; letter-spacing:0.5px; border: 1px solid rgba(139,92,246,0.4);">
+                                  New Verse
+                                </span>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+
+                      ${
+                        poem.coverImage
+                          ? `
+                      <!-- FEATURED COVER IMAGE -->
+                      <tr>
+                        <td style="padding:0;">
+                          <a href="https://satinderpoetry.com/poems/${poem._id}" target="_blank">
+                            <img src="${poem.coverImage}" alt="${poem.title}" style="width:100%; max-height:260px; object-fit:cover; display:block;" />
+                          </a>
+                        </td>
+                      </tr>
+                      `
+                          : ""
+                      }
+
+                      <!-- MAIN POEM CARD -->
+                      <tr>
+                        <td style="padding:32px 32px 24px;">
+                          
+                          ${
+                            poem.tags && poem.tags.length > 0
+                              ? `
+                          <!-- TAG BADGES -->
+                          <div style="margin-bottom:12px;">
+                            ${poem.tags
+                              .slice(0, 3)
+                              .map(
+                                (tag) => `
+                              <span style="display:inline-block; background:#f3e8ff; color:#6b21a8; font-size:12px; font-weight:600; padding:3px 10px; border-radius:20px; margin-right:6px; margin-bottom:6px;">
+                                #${tag}
+                              </span>
+                            `,
+                              )
+                              .join("")}
+                          </div>
+                          `
+                              : ""
+                          }
+
+                          <!-- TITLE & AUTHOR -->
+                          <h1 style="margin:0 0 6px; color:#0f172a; font-size:26px; line-height:1.3; font-weight:700; font-family: Georgia, serif;">
+                            <a href="https://satinderpoetry.com/poems/${
+                              poem._id
+                            }" style="color:#0f172a; text-decoration:none;">
+                              ${poem.title}
+                            </a>
                           </h1>
-                          <p style="margin-top:8px; color:#dfe6e9; font-size:14px;">
-                            A new poem just arrived
+                          
+                          <p style="margin:0 0 20px; color:#64748b; font-size:14px; font-style:italic;">
+                            By <strong style="color:#334155;">${
+                              poem.author || "Satinder Singh Sall"
+                            }</strong>
                           </p>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td style="padding:32px;">
-                          <h2 style="margin-top:0; color:#2d3436; font-size:22px;">
-                            📜 ${poem.title}
-                          </h2>
-                          <p style="color:#636e72; margin:8px 0 24px;">
-                            By <strong>${poem.author}</strong>
-                          </p>
-                          <p style="color:#444; line-height:1.6;">
-                            A fresh piece of poetry has just been published on <strong>Satinder Poetry</strong>.
-                            Dive into words crafted to make you pause, feel, and reflect.
-                          </p>
-                          <div style="margin:32px 0; text-align:center;">
+
+                          <!-- POEM EXCERPT CARD (STAGGERED VERSE STYLE) -->
+                          <div style="background:#faf5ff; border-left:4px solid #8b5cf6; padding:20px 24px; border-radius:0 12px 12px 0; margin-bottom:28px;">
+                            <p style="color:#4c1d95; font-size:15px; line-height:1.8; font-family: Georgia, 'Times New Roman', serif; font-style:italic; margin:0; white-space:pre-line;">
+                              ${
+                                poem.excerpt ||
+                                poem.content?.slice(0, 220) + "..." ||
+                                "A fresh piece of poetry has been published. Dive into stanzas crafted to inspire reflection and quiet emotion."
+                              }
+                            </p>
+                          </div>
+
+                          <!-- READ FULL POEM BUTTON -->
+                          <div style="text-align:center; margin-bottom:12px;">
                             <a href="https://satinderpoetry.com/poems/${poem._id}"
-                              style="display:inline-block; padding:14px 28px; background:#2c5364; color:#ffffff; text-decoration:none; border-radius:30px; font-weight:600; font-size:15px;">
-                              Read the Poem →
+                              style="display:inline-block; padding:12px 30px; background:#0f172a; color:#ffffff; text-decoration:none; border-radius:8px; font-weight:600; font-size:14px; transition:all 0.2s ease;">
+                              Read Complete Poem →
                             </a>
                           </div>
-                          <div style="text-align:center;">
-                            <a href="https://satinderpoetry.com/poems"
-                              style="color:#0984e3; text-decoration:none; font-size:14px;">
-                              Explore All Poems
-                            </a>
-                          </div>
+
                         </td>
                       </tr>
+
+                      <!-- QUICK LINKS NAVIGATION SECTION -->
                       <tr>
-                        <td style="padding:0 32px;">
-                          <hr style="border:none; border-top:1px solid #ecf0f1;">
+                        <td style="padding:16px 32px; background:#f8fafc; border-top:1px solid #f1f5f9; border-bottom:1px solid #f1f5f9; text-align:center;">
+                          <span style="font-size:12px; font-weight:700; text-transform:uppercase; color:#94a3b8; letter-spacing:0.8px; display:block; margin-bottom:8px;">
+                            Explore Platform
+                          </span>
+                          <a href="https://satinderpoetry.com/poems" style="color:#0284c7; text-decoration:none; font-size:13px; font-weight:500; margin:0 8px;">Poems</a> •
+                          <a href="https://satinderpoetry.com/books" style="color:#0284c7; text-decoration:none; font-size:13px; font-weight:500; margin:0 8px;">Books</a> •
+                          <a href="https://satinderpoetry.com/blogs" style="color:#0284c7; text-decoration:none; font-size:13px; font-weight:500; margin:0 8px;">Blogs</a> •
+                          <a href="https://satinderpoetry.com/about-me" style="color:#0284c7; text-decoration:none; font-size:13px; font-weight:500; margin:0 8px;">About</a> •
+                          <a href="https://satinderpoetry.com/newsletter" style="color:#0284c7; text-decoration:none; font-size:13px; font-weight:500; margin:0 8px;">Newsletter</a>
                         </td>
                       </tr>
+
+                      <!-- AUTHOR FOOTER & LINKS -->
                       <tr>
-                        <td style="padding:24px 32px; font-size:13px; color:#636e72;">
-                          <p style="margin-top:0;">
-                            You’re receiving this email because you’re part of the Satinder Poetry community.
-                          </p>
-                          <p style="margin:16px 0 4px; font-weight:600; color:#2d3436;">
+                        <td style="padding:24px 32px; background:#f8fafc; font-size:13px; color:#64748b;">
+                          <p style="margin:0 0 8px; font-weight:600; color:#1e293b; font-size:14px;">
                             — Satinder Singh Sall
                           </p>
-                          <p style="margin:0;">
-                            ✉️ <a href="mailto:satindersinghsall111@gmail.com" style="color:#0984e3; text-decoration:none;">satindersinghsall111@gmail.com</a><br/>
-                            🌐 <a href="https://satinder-portfolio.vercel.app" style="color:#0984e3; text-decoration:none;">My Portfolio</a> |
-                            <a href="https://www.linkedin.com/in/satinder-singh-sall-b62049204/" style="color:#0984e3; text-decoration:none;">LinkedIn</a> |
-                            <a href="https://github.com/SatinderSinghSall" style="color:#0984e3; text-decoration:none;">GitHub</a>
+                          <p style="margin:0 0 16px; line-height:1.5;">
+                            ✉️ <a href="mailto:satindersinghsall111@gmail.com" style="color:#0284c7; text-decoration:none;">satindersinghsall111@gmail.com</a><br/>
+                            🌐 <a href="https://satinder-portfolio.vercel.app" style="color:#0284c7; text-decoration:none;">Portfolio</a> |
+                            <a href="https://www.linkedin.com/in/satinder-singh-sall-b62049204/" style="color:#0284c7; text-decoration:none;">LinkedIn</a> |
+                            <a href="https://github.com/SatinderSinghSall" style="color:#0284c7; text-decoration:none;">GitHub</a>
                           </p>
+                          
+                          <!-- UNSUBSCRIBE NOTICE -->
+                          <div style="padding-top:12px; border-top:1px solid #e2e8f0; font-size:12px; color:#94a3b8;">
+                            You received this email because you're subscribed to poetry releases from Satinder Poetry.<br/>
+                            Don't want to receive these emails? You can manage your preferences or unsubscribe anytime by visiting your <a href="https://satinderpoetry.com/profile" style="color:#0284c7; text-decoration:underline;">Account Profile Settings</a>.
+                          </div>
                         </td>
                       </tr>
+
                     </table>
-                    <p style="margin-top:24px; font-size:12px; color:#b2bec3;">
-                      © ${new Date().getFullYear()} Satinder Poetry
+
+                    <!-- COPYRIGHT -->
+                    <p style="margin-top:20px; font-size:12px; color:#94a3b8; text-align:center;">
+                      © ${new Date().getFullYear()} Satinder Poetry. All rights reserved.
                     </p>
+
                   </td>
                 </tr>
               </table>
