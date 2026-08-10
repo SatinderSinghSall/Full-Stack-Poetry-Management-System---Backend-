@@ -137,6 +137,20 @@ const notifyAllUsersAboutBlog = async (recipients, blog) => {
                         </td>
                       </tr>
 
+                      <!-- QUICK LINKS NAVIGATION SECTION -->
+                      <tr>
+                        <td style="padding:16px 32px; background:#f8fafc; border-top:1px solid #f1f5f9; border-bottom:1px solid #f1f5f9; text-align:center;">
+                          <span style="font-size:12px; font-weight:700; text-transform:uppercase; color:#94a3b8; letter-spacing:0.8px; display:block; margin-bottom:8px;">
+                            Explore Platform
+                          </span>
+                          <a href="https://satinderpoetry.com/poems" style="color:#0284c7; text-decoration:none; font-size:13px; font-weight:500; margin:0 8px;">Poems</a> •
+                          <a href="https://satinderpoetry.com/books" style="color:#0284c7; text-decoration:none; font-size:13px; font-weight:500; margin:0 8px;">Books</a> •
+                          <a href="https://satinderpoetry.com/blogs" style="color:#0284c7; text-decoration:none; font-size:13px; font-weight:500; margin:0 8px;">Blogs</a> •
+                          <a href="https://satinderpoetry.com/about-me" style="color:#0284c7; text-decoration:none; font-size:13px; font-weight:500; margin:0 8px;">About</a> •
+                          <a href="https://satinderpoetry.com/newsletter" style="color:#0284c7; text-decoration:none; font-size:13px; font-weight:500; margin:0 8px;">Newsletter</a>
+                        </td>
+                      </tr>
+
                       <!-- AUTHOR FOOTER & LINKS -->
                       <tr>
                         <td style="padding:24px 32px; background:#f8fafc; font-size:13px; color:#64748b;">

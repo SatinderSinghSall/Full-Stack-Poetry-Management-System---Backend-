@@ -58,32 +58,70 @@ const notifyAllUsersAboutBook = async (recipients, book) => {
             subject: `📚 New Book Recommendation — ${book.title}`,
             html: `
             <!DOCTYPE html>
-            <html lang="en">
+            <html lang="en" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
             <head>
               <meta charset="UTF-8" />
               <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-              <title>New Book Release</title>
+              <meta name="color-scheme" content="light dark" />
+              <meta name="supported-color-schemes" content="light dark" />
+              <title>New Book Released</title>
+              <style>
+                :root {
+                  color-scheme: light dark;
+                  supported-color-schemes: light dark;
+                }
+                /* Dark Mode Styling Overrides */
+                @media (prefers-color-scheme: dark) {
+                  body, table.bg-outer { background-color: #0b0f19 !important; }
+                  .card-container { background-color: #1e293b !important; border-color: #334155 !important; }
+                  .hero-section { background: #0f172a !important; }
+                  .text-main { color: #f8fafc !important; }
+                  .text-muted { color: #94a3b8 !important; }
+                  .synopsis-box { background-color: #0f172a !important; border-left-color: #f59e0b !important; color: #cbd5e1 !important; }
+                  .nav-box { background-color: #0f172a !important; border-color: #334155 !important; }
+                  .nav-link { color: #38bdf8 !important; }
+                  .footer-section { background-color: #0f172a !important; color: #94a3b8 !important; }
+                  .divider { border-top-color: #334155 !important; }
+                }
+              </style>
             </head>
             <body style="margin:0; padding:0; background-color:#f4f6f8; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
-              <table width="100%" cellpadding="0" cellspacing="0">
+              <table width="100%" cellpadding="0" cellspacing="0" class="bg-outer" style="background-color:#f4f6f8;">
                 <tr>
                   <td align="center" style="padding:32px 16px;">
-                    <table width="100%" cellpadding="0" cellspacing="0" style="max-width:600px; background:#ffffff; border-radius:16px; overflow:hidden; box-shadow:0 12px 35px rgba(0,0,0,0.06); border: 1px solid #e2e8f0;">
+                    <table width="100%" cellpadding="0" cellspacing="0" class="card-container" style="max-width:600px; background:#ffffff; border-radius:16px; overflow:hidden; box-shadow:0 12px 35px rgba(0,0,0,0.06); border: 1px solid #e2e8f0;">
                       
                       <!-- BRAND HEADER -->
                       <tr>
-                        <td style="background:#0f172a; padding:24px 32px; border-bottom:3px solid #d97706;">
+                        <td style="background:#0f172a; padding:20px 32px; border-bottom:3px solid #d97706;">
                           <table width="100%" cellpadding="0" cellspacing="0">
                             <tr>
                               <td align="left">
-                                <span style="color:#ffffff; font-size:18px; font-weight:700; letter-spacing:0.5px; text-transform:uppercase;">
+                                <span style="color:#ffffff; font-size:17px; font-weight:700; letter-spacing:0.5px; text-transform:uppercase;">
                                   📚 Satinder Bookshelf
                                 </span>
                               </td>
                               <td align="right">
                                 <span style="background:rgba(217,119,6,0.25); color:#fef3c7; font-size:11px; font-weight:600; padding:4px 10px; border-radius:12px; text-transform:uppercase; letter-spacing:0.5px; border: 1px solid rgba(217,119,6,0.4);">
-                                  New Release
+                                  New Arrival
                                 </span>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+
+                      <!-- QUICK LINKS NAVIGATION SECTION -->
+                      <tr>
+                        <td class="nav-box" style="background:#f8fafc; padding:12px 32px; border-bottom:1px solid #e2e8f0; text-align:center;">
+                          <table width="100%" cellpadding="0" cellspacing="0">
+                            <tr>
+                              <td align="center" style="font-size:13px; font-weight:600;">
+                                <a href="https://satinderpoetry.com/books" class="nav-link" style="color:#0284c7; text-decoration:none; margin:0 10px; display:inline-block;">📖 Library Catalog</a>
+                                <span class="text-muted" style="color:#cbd5e1;">|</span>
+                                <a href="https://satinderpoetry.com/featured" class="nav-link" style="color:#0284c7; text-decoration:none; margin:0 10px; display:inline-block;">⭐ Top Recommendations</a>
+                                <span class="text-muted" style="color:#cbd5e1;">|</span>
+                                <a href="https://satinderpoetry.com/community" class="nav-link" style="color:#0284c7; text-decoration:none; margin:0 10px; display:inline-block;">💬 Reader Reviews</a>
                               </td>
                             </tr>
                           </table>
@@ -92,7 +130,7 @@ const notifyAllUsersAboutBook = async (recipients, book) => {
 
                       <!-- BOOK SHOWCASE HERO SECTION -->
                       <tr>
-                        <td style="padding:32px 32px 24px; background:linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);">
+                        <td class="hero-section" style="padding:32px 32px 24px; background:linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);">
                           <table width="100%" cellpadding="0" cellspacing="0">
                             <tr>
                               ${
@@ -117,27 +155,27 @@ const notifyAllUsersAboutBook = async (recipients, book) => {
                                 ${
                                   book.genre
                                     ? `
-                                <span style="display:inline-block; background:#fef3c7; color:#92400e; font-size:12px; font-weight:700; padding:3px 10px; border-radius:20px; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:8px;">
+                                <span style="display:inline-block; background:#fef3c7; color:#92400e; font-size:11px; font-weight:700; padding:3px 10px; border-radius:20px; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:8px;">
                                   ${book.genre}
                                 </span>
                                 `
                                     : ""
                                 }
                                 
-                                <h1 style="margin:4px 0 8px; color:#0f172a; font-size:22px; line-height:1.3; font-weight:700;">
+                                <h1 class="text-main" style="margin:4px 0 8px; color:#0f172a; font-size:22px; line-height:1.3; font-weight:700;">
                                   ${book.title}
                                 </h1>
                                 
-                                <p style="margin:0 0 12px; color:#475569; font-size:14px; font-weight:500;">
-                                  By <strong style="color:#0f172a;">${book.author}</strong>
+                                <p class="text-muted" style="margin:0 0 12px; color:#475569; font-size:14px; font-weight:500;">
+                                  By <strong class="text-main" style="color:#0f172a;">${book.author}</strong>
                                 </p>
 
                                 <!-- PRICE BADGE -->
                                 <div style="margin-top:12px;">
-                                  <span style="font-size:18px; font-weight:800; color:#0f172a;">
+                                  <span class="text-main" style="font-size:18px; font-weight:800; color:#0f172a;">
                                     ${
                                       book.price && book.price > 0
-                                        ? `$${book.price}`
+                                        ? `₹${book.price}`
                                         : "Free / Recommended"
                                     }
                                   </span>
@@ -151,30 +189,30 @@ const notifyAllUsersAboutBook = async (recipients, book) => {
                       <!-- BOOK DESCRIPTION & SYNOPSIS -->
                       <tr>
                         <td style="padding:0 32px 32px;">
-                          <h3 style="margin:0 0 10px; color:#1e293b; font-size:14px; text-transform:uppercase; letter-spacing:0.5px;">
-                            Synopsis & Notes
+                          <h3 class="text-main" style="margin:0 0 10px; color:#1e293b; font-size:13px; text-transform:uppercase; letter-spacing:0.5px; font-weight:700;">
+                            Synopsis & Literary Notes
                           </h3>
-                          <p style="color:#475569; font-size:15px; line-height:1.7; margin:0 0 24px; background:#f8fafc; padding:16px; border-radius:8px; border-left:4px solid #d97706;">
+                          <p class="synopsis-box" style="color:#475569; font-size:14.5px; line-height:1.7; margin:0 0 24px; background:#f8fafc; padding:16px; border-radius:8px; border-left:4px solid #d97706;">
                             ${
                               book.description ||
-                              "A fresh literary addition has landed on Satinder Poetry. Discover themes, reflections, and insights crafted to enrich your reading list."
+                              "A new addition has landed in the library shelf. Discover themes, reflections, and insights crafted to enrich your personal reading list."
                             }
                           </p>
 
-                          <!-- BUTTONS -->
+                          <!-- CALL TO ACTION BUTTONS -->
                           <table width="100%" cellpadding="0" cellspacing="0">
                             <tr>
                               <td align="center">
                                 <a href="https://satinderpoetry.com/books/${book._id}"
-                                  style="display:inline-block; padding:12px 28px; background:#d97706; color:#ffffff; text-decoration:none; border-radius:8px; font-weight:600; font-size:14px; margin-right:8px; margin-bottom:8px;">
-                                  📖 View Book Details
+                                  style="display:inline-block; padding:12px 24px; background:#d97706; color:#ffffff; text-decoration:none; border-radius:8px; font-weight:600; font-size:14px; margin-right:8px; margin-bottom:8px;">
+                                  📖 View Details & Preview
                                 </a>
                                 ${
                                   book.buyUrl
                                     ? `
                                 <a href="${book.buyUrl}" target="_blank"
                                   style="display:inline-block; padding:12px 24px; background:#0f172a; color:#ffffff; text-decoration:none; border-radius:8px; font-weight:600; font-size:14px; margin-bottom:8px;">
-                                  🛒 Get Copy
+                                  🛒 Get Your Copy
                                 </a>
                                 `
                                     : ""
@@ -188,17 +226,31 @@ const notifyAllUsersAboutBook = async (recipients, book) => {
                       <!-- DIVIDER -->
                       <tr>
                         <td style="padding:0 32px;">
-                          <hr style="border:none; border-top:1px solid #f1f5f9; margin:0;">
+                          <hr class="divider" style="border:none; border-top:1px solid #f1f5f9; margin:0;">
+                        </td>
+                      </tr>
+
+                      <!-- QUICK LINKS NAVIGATION SECTION -->
+                      <tr>
+                        <td style="padding:16px 32px; background:#f8fafc; border-top:1px solid #f1f5f9; border-bottom:1px solid #f1f5f9; text-align:center;">
+                          <span style="font-size:12px; font-weight:700; text-transform:uppercase; color:#94a3b8; letter-spacing:0.8px; display:block; margin-bottom:8px;">
+                            Explore Platform
+                          </span>
+                          <a href="https://satinderpoetry.com/poems" style="color:#0284c7; text-decoration:none; font-size:13px; font-weight:500; margin:0 8px;">Poems</a> •
+                          <a href="https://satinderpoetry.com/books" style="color:#0284c7; text-decoration:none; font-size:13px; font-weight:500; margin:0 8px;">Books</a> •
+                          <a href="https://satinderpoetry.com/blogs" style="color:#0284c7; text-decoration:none; font-size:13px; font-weight:500; margin:0 8px;">Blogs</a> •
+                          <a href="https://satinderpoetry.com/about-me" style="color:#0284c7; text-decoration:none; font-size:13px; font-weight:500; margin:0 8px;">About</a> •
+                          <a href="https://satinderpoetry.com/newsletter" style="color:#0284c7; text-decoration:none; font-size:13px; font-weight:500; margin:0 8px;">Newsletter</a>
                         </td>
                       </tr>
 
                       <!-- AUTHOR FOOTER & LINKS -->
                       <tr>
-                        <td style="padding:24px 32px; background:#f8fafc; font-size:13px; color:#64748b;">
-                          <p style="margin:0 0 8px; font-weight:600; color:#1e293b; font-size:14px;">
+                        <td class="footer-section" style="padding:24px 32px; background:#f8fafc; font-size:13px; color:#64748b;">
+                          <p class="text-main" style="margin:0 0 8px; font-weight:600; color:#1e293b; font-size:14px;">
                             — Satinder Singh Sall
                           </p>
-                          <p style="margin:0 0 16px; line-height:1.5;">
+                          <p style="margin:0 0 16px; line-height:1.6;">
                             ✉️ <a href="mailto:satindersinghsall111@gmail.com" style="color:#0284c7; text-decoration:none;">satindersinghsall111@gmail.com</a><br/>
                             🌐 <a href="https://satinder-portfolio.vercel.app" style="color:#0284c7; text-decoration:none;">Portfolio</a> |
                             <a href="https://www.linkedin.com/in/satinder-singh-sall-b62049204/" style="color:#0284c7; text-decoration:none;">LinkedIn</a> |
@@ -207,8 +259,8 @@ const notifyAllUsersAboutBook = async (recipients, book) => {
                           
                           <!-- UNSUBSCRIBE NOTICE -->
                           <div style="padding-top:12px; border-top:1px solid #e2e8f0; font-size:12px; color:#94a3b8;">
-                            You received this email because you're subscribed to book updates from Satinder Poetry.<br/>
-                            Don't want to receive these emails? You can manage your preferences or unsubscribe anytime by visiting your <a href="https://satinderpoetry.com/profile" style="color:#0284c7; text-decoration:underline;">Account Profile Settings</a>.
+                            You received this email because you're subscribed to new book alerts on Satinder Bookshelf.<br/>
+                            Don't want to receive these updates? Manage preferences or unsubscribe in your <a href="https://satinderpoetry.com/profile" style="color:#0284c7; text-decoration:underline;">Account Profile Settings</a>.
                           </div>
                         </td>
                       </tr>

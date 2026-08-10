@@ -488,13 +488,154 @@ const submitPoemDraft = async (req, res) => {
       });
     }
 
+    const trimmedTitle = title.trim();
+    const trimmedGenre = genre.trim();
+    const trimmedContent = content.trim();
+
+    // Prevent duplicate draft submissions by the same user
+    const existingSubmission = await PoemSubmission.findOne({
+      user: req.user._id,
+      title: trimmedTitle,
+      content: trimmedContent,
+    });
+
+    if (existingSubmission) {
+      return res.status(409).json({
+        message: "You have already submitted this poem draft for review.",
+      });
+    }
+
     const newSubmission = await PoemSubmission.create({
       user: req.user._id,
-      title: title.trim(),
-      genre: genre.trim(),
-      content: content.trim(),
+      title: trimmedTitle,
+      genre: trimmedGenre,
+      content: trimmedContent,
       noteToAdmin: noteToAdmin?.trim(),
     });
+
+    // Send confirmation email to the submitting user
+    if (req.user?.email) {
+      sendMail({
+        to: req.user.email,
+        subject: `📜 Submission Received — ${trimmedTitle}`,
+        html: `
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+          <title>Submission Received</title>
+        </head>
+        <body style="margin:0; padding:0; background-color:#f4f6f8; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+          <table width="100%" cellpadding="0" cellspacing="0">
+            <tr>
+              <td align="center" style="padding:32px 16px;">
+                <table width="100%" cellpadding="0" cellspacing="0" style="max-width:600px; background:#ffffff; border-radius:16px; overflow:hidden; box-shadow:0 12px 35px rgba(0,0,0,0.06); border: 1px solid #e2e8f0;">
+                  
+                  <!-- BRAND HEADER -->
+                  <tr>
+                    <td style="background:#0f172a; padding:24px 32px; border-bottom:3px solid #8b5cf6;">
+                      <table width="100%" cellpadding="0" cellspacing="0">
+                        <tr>
+                          <td align="left">
+                            <span style="color:#ffffff; font-size:18px; font-weight:700; letter-spacing:0.5px; text-transform:uppercase;">
+                              ✒️ Satinder Poetry
+                            </span>
+                          </td>
+                          <td align="right">
+                            <span style="background:rgba(139,92,246,0.25); color:#ddd6fe; font-size:11px; font-weight:600; padding:4px 10px; border-radius:12px; text-transform:uppercase; letter-spacing:0.5px; border: 1px solid rgba(139,92,246,0.4);">
+                              Under Review
+                            </span>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+
+                  <!-- MAIN CONTENT CARD -->
+                  <tr>
+                    <td style="padding:32px 32px 24px;">
+                      
+                      <!-- GENRE BADGE -->
+                      <div style="margin-bottom:12px;">
+                        <span style="display:inline-block; background:#f3e8ff; color:#6b21a8; font-size:12px; font-weight:600; padding:3px 10px; border-radius:20px;">
+                          #${trimmedGenre}
+                        </span>
+                      </div>
+
+                      <!-- TITLE & GREETING -->
+                      <h1 style="margin:0 0 10px; color:#0f172a; font-size:24px; line-height:1.3; font-weight:700; font-family: Georgia, serif;">
+                        ${trimmedTitle}
+                      </h1>
+                      
+                      <p style="margin:0 0 20px; color:#64748b; font-size:14px; font-style:italic;">
+                        Submitted by <strong style="color:#334155;">${req.user.name || "Poet"}</strong>
+                      </p>
+
+                      <p style="color:#334155; font-size:15px; line-height:1.6; margin-bottom:20px;">
+                        Thank you for sharing your work with us! Your draft has been successfully received and added to our review queue.
+                      </p>
+
+                      <!-- POEM DRAFT PREVIEW -->
+                      <div style="background:#faf5ff; border-left:4px solid #8b5cf6; padding:20px 24px; border-radius:0 12px 12px 0; margin-bottom:28px;">
+                        <p style="color:#4c1d95; font-size:15px; line-height:1.8; font-family: Georgia, 'Times New Roman', serif; font-style:italic; margin:0; white-space:pre-line;">
+                          ${trimmedContent.length > 250 ? trimmedContent.slice(0, 250) + "..." : trimmedContent}
+                        </p>
+                      </div>
+
+                      <p style="color:#64748b; font-size:14px; line-height:1.5; margin:0;">
+                        We will notify you via email as soon as your submission is reviewed and published on the platform.
+                      </p>
+
+                    </td>
+                  </tr>
+
+                  <!-- QUICK LINKS NAVIGATION SECTION -->
+                  <tr>
+                    <td style="padding:16px 32px; background:#f8fafc; border-top:1px solid #f1f5f9; border-bottom:1px solid #f1f5f9; text-align:center;">
+                      <span style="font-size:12px; font-weight:700; text-transform:uppercase; color:#94a3b8; letter-spacing:0.8px; display:block; margin-bottom:8px;">
+                        Explore Platform
+                      </span>
+                      <a href="https://satinderpoetry.com/poems" style="color:#0284c7; text-decoration:none; font-size:13px; font-weight:500; margin:0 8px;">Poems</a> •
+                      <a href="https://satinderpoetry.com/books" style="color:#0284c7; text-decoration:none; font-size:13px; font-weight:500; margin:0 8px;">Books</a> •
+                      <a href="https://satinderpoetry.com/blogs" style="color:#0284c7; text-decoration:none; font-size:13px; font-weight:500; margin:0 8px;">Blogs</a> •
+                      <a href="https://satinderpoetry.com/about-me" style="color:#0284c7; text-decoration:none; font-size:13px; font-weight:500; margin:0 8px;">About</a> •
+                      <a href="https://satinderpoetry.com/newsletter" style="color:#0284c7; text-decoration:none; font-size:13px; font-weight:500; margin:0 8px;">Newsletter</a>
+                    </td>
+                  </tr>
+
+                  <!-- AUTHOR FOOTER & LINKS -->
+                  <tr>
+                    <td style="padding:24px 32px; background:#f8fafc; font-size:13px; color:#64748b;">
+                      <p style="margin:0 0 8px; font-weight:600; color:#1e293b; font-size:14px;">
+                        — Satinder Singh Sall
+                      </p>
+                      <p style="margin:0 0 16px; line-height:1.5;">
+                        ✉️ <a href="mailto:satindersinghsall111@gmail.com" style="color:#0284c7; text-decoration:none;">satindersinghsall111@gmail.com</a><br/>
+                        🌐 <a href="https://satinder-portfolio.vercel.app" style="color:#0284c7; text-decoration:none;">Portfolio</a> |
+                        <a href="https://www.linkedin.com/in/satinder-singh-sall-b62049204/" style="color:#0284c7; text-decoration:none;">LinkedIn</a> |
+                        <a href="https://github.com/SatinderSinghSall" style="color:#0284c7; text-decoration:none;">GitHub</a>
+                      </p>
+                    </td>
+                  </tr>
+
+                </table>
+
+                <!-- COPYRIGHT -->
+                <p style="margin-top:20px; font-size:12px; color:#94a3b8; text-align:center;">
+                  © ${new Date().getFullYear()} Satinder Poetry. All rights reserved.
+                </p>
+
+              </td>
+            </tr>
+          </table>
+        </body>
+        </html>
+        `,
+      }).catch((err) =>
+        console.error("❌ Submission receipt email failed:", err),
+      );
+    }
 
     res.status(201).json({
       success: true,
